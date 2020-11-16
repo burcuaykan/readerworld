@@ -1,0 +1,84 @@
+.h2-text{
+    font-weight: bold;
+    color: #FFFAF8;
+}
+.sign-in-row{
+    display: inline!important;
+}
+#sign-in{
+    position: relative;
+    text-align: center;
+    
+}
+.sign-center{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.sign-header{
+    color: #FFF5EF;
+    font-size: 50px;
+}
+.sign-in-text{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 74px;
+
+    color: #FFF5EF;
+}
+.ant-tabs-tab{
+    font-style: normal;
+    font-weight: bold!important;
+    font-size: 30px!important;
+    line-height: 74px;
+    color: #787878;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-style: normal;
+    font-weight: bold!important;
+    font-size: 30px;
+    line-height: 74px;
+    color: #FFF5EF!important;
+}
+.ant-form-item-label > label{
+    color: #FFF5EF!important;
+}
+.ant-tabs-tab:hover {
+    color:#787878!important;
+}
+
+.ant-btn-primary {
+    background: #FFF5EF!important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)!important;
+    border-radius: 113px!important;
+    border-color: #FFF5EF!important;
+    color: black!important;
+    font-weight: bold!important;
+    font-size: 15px!important;
+}
+.ant-tabs-tab-btn:hover{
+    color: #FD823C!important;
+}
+.ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
+    color: #FFF5EF!important;
+}
+.ant-input{
+    background: #FFFAF8!important;
+    border-radius: 20px!important;
+    line-height: 2!important;
+}
+.ant-input-affix-wrapper {
+    background: #FFFAF8!important;
+    border-radius: 20px!important; 
+}
+.ant-tabs-ink-bar {
+    background: #FD823C!important;
+}
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+    color: #FD823C!important; 
+}
+.ant-form-item-explain.ant-form-item-explain-error {
+    color: #FD823C!important;
+}
