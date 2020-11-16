@@ -19,6 +19,9 @@ target/
 *.iml
 *.ipr
 
+##Security
+!**/src/main/serviceaccount.json
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
