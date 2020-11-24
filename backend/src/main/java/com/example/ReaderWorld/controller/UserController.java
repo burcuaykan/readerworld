@@ -12,9 +12,18 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+    //dependency injection
     @Autowired
     UserService userService;
 
+
+    @GetMapping("")
+    @ResponseBody
+    public ResponseEntity<?> getUser(@RequestParam(name="email") String email) throws ExecutionException, InterruptedException {
+        UserDTO user = userService.getUser(email);
+        return ResponseEntity.ok(user);
+
+    }
 
     @PostMapping("")
     @ResponseBody
