@@ -10,13 +10,44 @@ const { TabPane } = Tabs;
 
 export default class SignIn extends Component {
 
-    // onFinish = (values) => {
-    //     console.log('Success:', values);
-    // };
+    constructor(props) {
+        super(props)
 
-    // onFinishFailed = (errorInfo) => {
-    //     console.log('Failed:', errorInfo);
-    // };
+        this.onChangeUserName = this.onChangeUserName.bind(this);
+        this.onChangeUserEmail = this.onChangeUserPassword.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.state = {
+            username: '',
+            password: '',
+            loggedIn: false
+        }
+    }
+    onChangeUserName = (e) => {
+        this.setState({ username: e.target.value });
+    }
+
+    onChangeUserPassword =(e) => {
+        this.setState( { password: e.target.value });
+    }
+
+    onSubmit = (e) => {
+        const userObject = {
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        axios.post('https://jsonplaceholder.typicode.com/users', userObject)
+            .then((res) => {
+                this.setState({ loggedIn: true});
+                console.log(res.data);
+                
+            }).catch((error) => {
+                console.log(error)
+            });
+
+        this.setState({ username: '', password: '' })
+    }
     render() {
        
         return (
@@ -58,7 +89,7 @@ export default class SignIn extends Component {
                                     >
 
                                         <Input 
-                                            ></Input>  
+                                             value={this.state.username} onChange={this.onChangeUserName}></Input>  
                                     </Form.Item>
                                     <Form.Item
                                         label="Password"
@@ -71,7 +102,7 @@ export default class SignIn extends Component {
                                         ]}
                                     >
                                         <Input.Password 
-                                           ></Input.Password> 
+                                           value={this.state.password} onChange={this.onChangeUserPassword}></Input.Password> 
                                     </Form.Item>
 
                                     <Form.Item layout="center">
@@ -87,7 +118,7 @@ export default class SignIn extends Component {
                                     initialValues={{
                                         remember: true,
                                     }}
-                                    onFinish={this.onFinish}
+                                    onFinish={this.onSubmit}
                                     onFinishFailed={this.onFinishFailed}
                                 >
                                     <Form.Item
@@ -100,7 +131,7 @@ export default class SignIn extends Component {
                                             },
                                         ]}
                                     >
-                                        <Input />
+                                        <Input value={this.state.username} onChange={this.onChangeUserName}></Input> 
                                     </Form.Item>
                                     <Form.Item
                                         label="Password"
@@ -112,16 +143,26 @@ export default class SignIn extends Component {
                                             },
                                         ]}
                                     >
-                                        <Input.Password />
+                                        <Input.Password value={this.state.password} onChange={this.onChangeUserPassword}></Input.Password> 
                                     </Form.Item>
                                     <Form.Item
-                                        label="Password again"
-                                        name="password-again"
+                                        name="confirm"
+                                        label="Confirm Password"
+                                        dependencies={['password']}
+                                        hasFeedback
                                         rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please input your password!',
+                                        {
+                                            required: true,
+                                            message: 'Please confirm your password!',
+                                        },
+                                        ({ getFieldValue }) => ({
+                                            validator(rule, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
+                                            return Promise.reject('The two passwords that you entered do not match!');
                                             },
+                                        }),
                                         ]}
                                     >
                                         <Input.Password />
@@ -135,7 +176,6 @@ export default class SignIn extends Component {
                             </TabPane>
                         </Tabs>
                         <hr />
-                        {/* <h2 className="h2-text">OR</h2> */}
                     </div>
                 </div>
             </div>
