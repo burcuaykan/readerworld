@@ -5,7 +5,7 @@ import SignBackground from '../../../../images/sign-background.svg';
 import { Tabs } from 'antd';
 import WelcomeLogo from '../../../../images/welcome-icon.svg';
 import axios from 'axios';
-
+import { Redirect } from "react-router-dom";
 const { TabPane } = Tabs;
 
 export default class SignIn extends Component {
@@ -49,6 +49,9 @@ export default class SignIn extends Component {
         this.setState({ username: '', password: '' })
     }
     render() {
+        if (this.state.loggedIn) {
+            return <Redirect to='/main-page' />
+        }
        
         return (
         <div>
