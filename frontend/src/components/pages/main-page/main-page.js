@@ -2,11 +2,11 @@ import React from "react";
 import "./main-page.css";
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { HomeFilled, ShopFilled, SettingFilled } from '@ant-design/icons';
-import MainLogo from '../../../../images/mainpage-logo.svg';
-import Books from '../../../../images/books.svg';
-import Bookclubs from '../../../../images/bookclub.svg';
-import Leaderboard from '../../../../images/leaderboard.svg';
-import Profile from '../../../../images/profile.svg';
+import MainLogo from '../../../images/mainpage-logo.svg';
+import Books from '../../../images/books.svg';
+import Bookclubs from '../../../images/bookclub.svg';
+import Leaderboard from '../../../images/leaderboard.svg';
+import Profile from '../../../images/profile.svg';
 import { Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 
