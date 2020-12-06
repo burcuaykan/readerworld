@@ -1,0 +1,36 @@
+.ant-layout-footer {
+    padding: 24px 50px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    background:#FD823C!important;
+}
+.footer-container {
+    width: 80%;
+    font-size: 13px;
+    }
+.footer-info-text{
+    font-weight: 500;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+.footer-image{
+    width: 80%;
+}
+.footer-name{
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 77px;
+    color: #FFFFFF;
+}
+.footer-text{
+    font-size: 15px;
+    color: #FFFFFF;
+    padding-right: 1rem;
+}
+@media (min-width: 992px) {
+    .footer-container {
+        font-size: 14px;
+
+            
+        }
+    }

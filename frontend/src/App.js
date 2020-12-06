@@ -3,13 +3,15 @@ import WelcomePage from './components/pages/welcome/welcome-page';
 import {BrowserRouter as Router, Route} from'react-router-dom';
 import MainPage from './components/pages/main-page/main-page';
 import './App.css';
+import Footercomp from './components/footer/footer';
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Route path='/' component={WelcomePage}></Route>
-        <Route path='/main-page' component={MainPage}></Route>
+        <Route exact path='/' component={WelcomePage}></Route>
+        <Route exact path='/main-page' component={MainPage}></Route>
+        <Footercomp/>
       </Router>
     );
   }
