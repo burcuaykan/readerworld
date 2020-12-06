@@ -1,17 +1,38 @@
 package com.example.ReaderWorld.model;
 
+import java.util.Date;
+
 public class BookDTO {
     private String bookname;
-    private String genre;
+    private String author;
     private int pageNumber;
     private String ISBN;
+    private Date publicationDate;
+    private String publisher;
 
-    public String getGenre() {
-        return genre;
+
+    public String getAuthor() {
+        return author;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public int getPageNumber() {

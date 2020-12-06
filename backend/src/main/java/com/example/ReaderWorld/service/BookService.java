@@ -22,9 +22,11 @@ public class BookService{
         BookDTO bookSaved = new BookDTO();
 
         bookSaved.setBookname(bookDTO.getBookname());
-        bookSaved.setGenre(bookDTO.getGenre());
+        bookSaved.setAuthor(bookDTO.getAuthor());
         bookSaved.setPageNumber(bookDTO.getPageNumber());
         bookSaved.setISBN(bookDTO.getISBN());
+        bookSaved.setPublicationDate(bookDTO.getPublicationDate());
+        bookSaved.setPublisher(bookDTO.getPublisher());
 
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(bookSaved.getISBN()).set(bookSaved);
         return collectionsApiFuture.get().getUpdateTime().toString();
