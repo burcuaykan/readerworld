@@ -6,6 +6,7 @@ import Misarables from '../../../images/bookcovers-dummy/les misarables.svg';
 import Cristo from '../../../images/bookcovers-dummy/monte cristo.svg';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import NavBar from '../../navigation-bar/navigation-bar.js'
 
 
 const { Header, Content, Sider } = Layout;

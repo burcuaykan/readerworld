@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import "./main-page.css";
 import { Layout, Menu } from 'antd';
-import { HomeFilled, ShopFilled, SettingFilled } from '@ant-design/icons';
 import MainLogo from '../../../images/mainpage-logo.svg';
-import Books from '../../../images/books.svg';
-import Bookclubs from '../../../images/bookclub.svg';
-import Leaderboard from '../../../images/leaderboard.svg';
-import Profile from '../../../images/profile.svg';
+import NavBar from '../../navigation-bar/navigation-bar.js'
 //import Mockingbird from '../../../images/bookcovers-dummy/to kill a mockingbird.svg';
 // import Gatsby from '../../../images/bookcovers-dummy/the great gatsby.svg';
 // import TwoCities from '../../../images/bookcovers-dummy/a tale of two cities.svg';
@@ -68,20 +64,7 @@ export default class MainPage extends Component {
                 </Header>
                 <Layout>
                     <Sider className="site-layout-background" width={200} >
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{ height: '100%', borderRight: 0 }}
-                        >
-                            <Menu.Item selected className="MenuItem" key="1" icon={<HomeFilled />} >Home</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="2" icon={<img src={Books} alt="" style={{ width: "9%", paddingBottom: "6px", marginRight: "10px" }} />}>Books</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="3" icon={<img src={Bookclubs} alt="" style={{ width: "9%", paddingBottom: "6px", marginRight: "10px" }} />}>Book Clubs</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="4" icon={<ShopFilled />} >Store</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="5" icon={<img src={Leaderboard} alt="" style={{ width: "9%", paddingBottom: "6px", marginRight: "10px" }} />}>Leaderboard</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="6" icon={<img src={Profile} alt="" style={{ width: "9%", paddingBottom: "6px", marginRight: "10px" }} />}>Profile</Menu.Item>
-                            <Menu.Item selected className="MenuItem" key="7" icon={<SettingFilled />}>Settings</Menu.Item>
-                        </Menu>
+                        <NavBar/>
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>
                         <Content

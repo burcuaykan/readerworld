@@ -15,19 +15,7 @@
     background: #202124!important;
 }
 
-.ant-menu {
-    background: #202124!important;
-}
-.ant-menu-item-selected {
-    color: #FFFFFF!important;
-    background: #303031!important;
-}
-.ant-menu-item {
-    color: #FFFFFF!important;
-}
-.ant-menu-inline .ant-menu-item::after{
-    border-right:3px solid #FD823C!important;
-} 
+
 .search-bar-input{
     background: #202124!important;
 }
