@@ -1,6 +1,7 @@
 package com.example.ReaderWorld.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class BookDTO {
     private String bookname;
@@ -9,6 +10,8 @@ public class BookDTO {
     private String ISBN;
     private Date publicationDate;
     private String publisher;
+    private List<CommentDTO> comments;
+
 
 
     public String getAuthor() {
@@ -57,5 +60,13 @@ public class BookDTO {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
     }
 }

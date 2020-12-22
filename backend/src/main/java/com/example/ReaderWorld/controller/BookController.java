@@ -1,6 +1,7 @@
 package com.example.ReaderWorld.controller;
 
 import com.example.ReaderWorld.model.BookDTO;
+import com.example.ReaderWorld.model.CommentDTO;
 import com.example.ReaderWorld.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,11 @@ public class BookController {
     @ResponseBody
     public ResponseEntity<?> post(@RequestBody BookDTO book) throws ExecutionException, InterruptedException {
         return ResponseEntity.ok(bookService.saveBook(book));
+    }
+
+    @PostMapping("/comment")
+    @ResponseBody
+    public ResponseEntity<?> addComment(@RequestBody CommentDTO commentDTO) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(bookService.saveComment(commentDTO));
     }
 }
