@@ -50,8 +50,6 @@ export default class NavBarComp extends React.Component {
     handleFifth() {
         this.setState({item:5});
     }
-
-
     render() {
         return (
             <Layout style={{ height: "625px" }}>
