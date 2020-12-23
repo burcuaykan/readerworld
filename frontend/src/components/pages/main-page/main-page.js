@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./main-page.css";
-import { Layout, Menu } from 'antd';
+import { Layout} from 'antd';
 import MainLogo from '../../../images/mainpage-logo.svg';
 import NavBar from '../../navigation-bar/navigation-bar.js'
 //import Mockingbird from '../../../images/bookcovers-dummy/to kill a mockingbird.svg';
@@ -29,13 +29,17 @@ export default class MainPage extends Component {
     }
 
     componentDidMount() {
-        axios.get(`lhttp://localhost:8080/api/books/?isbn=9780060192501`)
+        axios.get(`http://localhost:8080/api/books/?isbn=9780060192501`,
+        {
+        withCredentials: true
+        })
             .then(res => {
+                console.log(res.data);
                 // const data = res.data.slice(0, 4);
-                const data = res.data
+                const data = [res.data]
                 const books = data.map(u =>
-                    <div key={u.id}>
-                         {/* <img src={u.thumbnailUrl} alt="" /> */}
+                    <div key={u.isbn}>
+                         {/* <img src={} alt="" /> */}
                         <p>{u.author}</p>
                         <p>{u.bookname}</p>
                        
@@ -74,7 +78,8 @@ export default class MainPage extends Component {
                                     {/* <Col> {this.state.books}</Col>
                                     <Col>{this.state.books} </Col> */}
                                     <div className="col-md-6">
-                                        {this.state.books.slice(0, this.state.secondColumnStart)}
+                                        {this.state.books}
+                                        <p>hello</p>
                                     </div>
                                     <div className="col-md-6">
                                         {this.state.books.slice(this.state.secondColumnStart)}

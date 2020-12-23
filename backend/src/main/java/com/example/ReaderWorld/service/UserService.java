@@ -41,6 +41,9 @@ public class UserService implements UserDetailsService {
 
         user_saved.setEmail(user.getEmail());
         user_saved.setPassword(encoder.encode(user.getPassword()));
+        user_saved.setGivenName(user.getGivenName());
+        user_saved.setFamilyName(user.getFamilyName());
+        user_saved.setBirthDay(user.getBirthDay());
 
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user_saved.getEmail()).set(user_saved);
         return collectionsApiFuture.get().getUpdateTime().toString();

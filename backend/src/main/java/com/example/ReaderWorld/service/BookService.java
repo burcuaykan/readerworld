@@ -1,14 +1,19 @@
 package com.example.ReaderWorld.service;
 
 import com.example.ReaderWorld.model.BookDTO;
+import com.example.ReaderWorld.model.CommentDTO;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -27,6 +32,7 @@ public class BookService{
         bookSaved.setISBN(bookDTO.getISBN());
         bookSaved.setPublicationDate(bookDTO.getPublicationDate());
         bookSaved.setPublisher(bookDTO.getPublisher());
+        bookSaved.setComments(Collections.emptyList());
 
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(bookSaved.getISBN()).set(bookSaved);
         return collectionsApiFuture.get().getUpdateTime().toString();
@@ -48,4 +54,23 @@ public class BookService{
             return null;
         }
     }
+
+
+    public boolean saveComment(CommentDTO commentDTO) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        BookDTO book = getBook(commentDTO.getISBN());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        commentDTO.setCommentAuthor(auth.getName());
+        commentDTO.setCommentTime(new Date());
+        if (book != null){
+            book.getComments().add(commentDTO);
+            dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
+            return true;
+        }
+        else{
+            System.out.println("Comment: +" + commentDTO + " and book with isbn: " + commentDTO.getISBN() + "is not saved ") ;
+            return false;
+        }
+    }
+
 }

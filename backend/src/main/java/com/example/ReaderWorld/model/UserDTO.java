@@ -5,6 +5,34 @@ public class UserDTO {
     private String email;
     private String password;
 
+    private String givenName;
+    private String familyName;
+    private String birthDay;
+
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
     public String getEmail() {
         return email;
     }
