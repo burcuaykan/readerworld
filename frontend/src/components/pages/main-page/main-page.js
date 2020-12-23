@@ -11,6 +11,7 @@ import NavBar from '../../navigation-bar/navigation-bar.js'
 import { Input } from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios'
+import BookInfoContent from "../book-info/book-info";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -53,21 +54,7 @@ export default class MainPage extends Component {
     }
     render() {
         return (
-            <Layout style={{ height: "625px" }}>
-                <Header className="header">
-                    <div className="logo" style={{ float: "left" }}>
-                        <img src={MainLogo} alt="" style={{ width: "40%" }} />
-                    </div>
-                    <div className="search-bar">
-                        <Search className="search-bar-input" placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
-                    </div>
-                </Header>
-                <Layout>
-                    <Sider className="site-layout-background" width={200} >
-                        <NavBar/>
-                    </Sider>
-                    <Layout style={{ padding: '24px 24px 24px' }}>
-                        <Content
+                <Content
                             className="site-layout-background"
                             style={{
                                 padding: 24,
@@ -75,6 +62,8 @@ export default class MainPage extends Component {
                                 minHeight: 280,
                             }}
                         >
+                        <h1>Main page</h1>
+                            
                             <Col>
                                 <Row>
                                     {/* <Col><img src={Mockingbird} alt="" style={{ width: "60%" }} /></Col>
@@ -112,9 +101,6 @@ export default class MainPage extends Component {
 
 
                         </Content>
-                    </Layout>
-                </Layout>
-            </Layout>
         );
     }
 }

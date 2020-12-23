@@ -1,22 +1,19 @@
 import React from "react";
 import Mockingbird from '../../../images/bookcovers-dummy/to kill a mockingbird.svg';
-import Gatsby from '../../../images/bookcovers-dummy/the great gatsby.svg';
-import TwoCities from '../../../images/bookcovers-dummy/a tale of two cities.svg';
-import Misarables from '../../../images/bookcovers-dummy/les misarables.svg';
-import Cristo from '../../../images/bookcovers-dummy/monte cristo.svg';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import NavBar from '../../navigation-bar/navigation-bar.js'
+import './book-info.css'
 
 
-const { Header, Content, Sider } = Layout;
+const {Content} = Layout;
 
 
+export default class BookInfoContent extends React.Component {
 
-const BookInfoPage = () => {
-    return (
-        
-                <Content
+    render() {
+        return (
+            <Content
                 className="site-layout-background"
                 style={{
                     padding: 24,
@@ -45,8 +42,7 @@ const BookInfoPage = () => {
                 </div>
                 
                 </Content>
-                
-    );
-}
+        )
+    }
 
-export default BookInfoPage;
+}

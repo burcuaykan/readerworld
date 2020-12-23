@@ -4,14 +4,14 @@
     margin-bottom: 0cm;
     margin-top: 1rem;
     padding: 0cm;
-    color: #FFFFFF;
+    color: #000000;
 }
 .author-name{
     font-weight: 500;
     font-size: 20px;
     padding: 0cm;
     margin-bottom: 0.5cm;
-    color: #d3d3d3;
+    color: #202124;
 }
 .book-info{
     font-weight: 200;
@@ -19,7 +19,7 @@
     padding: 0cm;
 
     margin: 0cm;
-    color: #FFFFFF;
+    color: #202124;
 }
 .book-info-container{
     margin: 0cm;
