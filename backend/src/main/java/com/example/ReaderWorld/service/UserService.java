@@ -35,9 +35,13 @@ public class UserService implements UserDetailsService {
     PasswordEncoder encoder;
 
 
-    public String saveUser(UserDTO user) throws InterruptedException, ExecutionException {
+    public boolean saveUser(UserDTO user) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         UserDTO user_saved = new UserDTO();
+
+        if(getUser(user.getEmail()) != null){
+            return false;
+        }
 
         user_saved.setEmail(user.getEmail());
         user_saved.setPassword(encoder.encode(user.getPassword()));
@@ -46,7 +50,7 @@ public class UserService implements UserDetailsService {
         user_saved.setBirthDay(user.getBirthDay());
 
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user_saved.getEmail()).set(user_saved);
-        return collectionsApiFuture.get().getUpdateTime().toString();
+        return true;
     }
 
     public UserDTO getUser(String email) throws InterruptedException, ExecutionException {

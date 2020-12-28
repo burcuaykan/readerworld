@@ -4,6 +4,7 @@ package com.example.ReaderWorld.controller;
 import com.example.ReaderWorld.model.UserDTO;
 import com.example.ReaderWorld.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,18 @@ public class UserController {
     @PostMapping("")
     @ResponseBody
     public ResponseEntity<?> post(@RequestBody UserDTO user) throws ExecutionException, InterruptedException {
-        return ResponseEntity.ok(userService.saveUser(user));
+        boolean savedUser = userService.saveUser(user);
+        if(savedUser){
+            return ResponseEntity.ok(new Object() {
+                public String saved = "true";
+            });
+        }
+        else{
+            //Meaning user is already saved
+            return ResponseEntity.ok(new Object() {
+                public String saved = "false";
+            });
+        }
     }
 
 }
