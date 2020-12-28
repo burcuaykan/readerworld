@@ -16,11 +16,14 @@ export default class SignIn extends Component {
         this.onChangeUserName = this.onChangeUserName.bind(this);
         this.onChangeUserEmail = this.onChangeUserPassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitSignup = this.onSubmitSignup.bind(this);
+
 
         this.state = {
             username: '',
             password: '',
-            loggedIn: false
+            loggedIn: false,
+            signUp: false
         }
     }
     onChangeUserName = (e) => {
@@ -67,8 +70,36 @@ export default class SignIn extends Component {
 
         // this.setState({ username: '', password: '' })
     }
+
+    onSubmitSignup = (e) => {
+        const userObject = {
+            email: this.state.username,
+            password: this.state.password
+        };
+
+        
+        axios.post('http://localhost:8080/api/users/',
+            // userObject,
+            {
+                email: 'user35@user.com', //gave the values directly for testing
+                password: 'user35',
+            },
+             {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            withCredentials: true
+        })
+            .then((response) => {
+                this.setState({ signUp: true });
+                console.log(response);
+            }).catch((error) => {
+                    console.log(error)
+                 });    
+    }
+
     render() {
-        if (this.state.loggedIn) {
+        if (this.state.loggedIn || this.state.signUp ) {
             return <Redirect to='/main-page' />
         }
 
@@ -140,7 +171,7 @@ export default class SignIn extends Component {
                                         initialValues={{
                                             remember: true,
                                         }}
-                                        onFinish={this.onSubmit}
+                                        onFinish={this.onSubmitSignup}
                                         onFinishFailed={this.onFinishFailed}
                                     >
                                         <Form.Item

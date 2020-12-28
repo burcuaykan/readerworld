@@ -5,6 +5,8 @@ import MainLogo from '../../../images/mainpage-logo.svg';
 import NavBarComp from '../../navigation-bar/navigation-bar.js'
 import { Row, Col } from 'react-bootstrap';
 import { Input } from 'antd';
+import axios from 'axios';
+
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
@@ -12,6 +14,42 @@ const { Header, Content, Sider } = Layout;
 const onSearch = value => console.log(value);
 
 export default class ProfileContent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: [],
+            secondColumnStart:2
+        };
+    }
+
+    componentDidMount() {
+        const email = 'user34@user.com' //for testing
+        axios.get(`http://localhost:8080/api/users/?email=` + email,
+        {
+        withCredentials: true
+        })
+            .then(res => {
+                console.log(res.data);
+                // const data = res.data.slice(0, 4);
+                const data = [res.data]
+                const user = data.map(u =>
+                    <div key={u.email}>
+                         {/* <img src={} alt="" /> */}
+                        <p>{u.email}</p>
+                       
+                    </div>
+                )
+                this.setState({
+                    user,
+                    error: null
+                });
+            })
+            .catch(err => {
+                this.setState({
+                    error: err
+                });
+            });
+    }
     render() {
         return (
             <Layout style={{ height: "625px" }}>
@@ -39,7 +77,8 @@ export default class ProfileContent extends Component {
                         <Col>
                             <Row>
                                 <div >
-                                    Profile page
+                                    Profile page for the user with email: {this.state.user}
+
                                 </div>
 
                             </Row>
