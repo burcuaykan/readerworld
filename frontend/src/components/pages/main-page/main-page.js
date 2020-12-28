@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./main-page.css";
 import { Layout} from 'antd';
 import MainLogo from '../../../images/mainpage-logo.svg';
-import NavBar from '../../navigation-bar/navigation-bar.js'
+import NavBarComp from '../../navigation-bar/navigation-bar.js'
 //import Mockingbird from '../../../images/bookcovers-dummy/to kill a mockingbird.svg';
 // import Gatsby from '../../../images/bookcovers-dummy/the great gatsby.svg';
 // import TwoCities from '../../../images/bookcovers-dummy/a tale of two cities.svg';
@@ -58,54 +58,68 @@ export default class MainPage extends Component {
     }
     render() {
         return (
-                <Content
-                            className="site-layout-background"
-                            style={{
-                                padding: 24,
-                                margin: 0,
-                                minHeight: 280,
-                            }}
-                        >
-                        <h1>Main page</h1>
-                            
-                            <Col>
-                                <Row>
-                                    {/* <Col><img src={Mockingbird} alt="" style={{ width: "60%" }} /></Col>
-                                        <Col> <img src={Gatsby} alt="" style={{ width: "60%" }} /> </Col>
-                                        <Col> <img src={TwoCities} alt="" style={{ width: "60%" }} /> </Col>
-                                        <Col> <img src={Misarables} alt="" style={{ width: "60%" }} /> </Col>
-                                        <Col> <img src={Cristo} alt="" style={{ width: "60%" }} /> </Col> */}
-                                    {/* <Col> {this.state.books}</Col>
-                                    <Col>{this.state.books} </Col> */}
-                                    <div className="col-md-6">
-                                        {this.state.books}
-                                        <p>hello</p>
-                                    </div>
-                                    <div className="col-md-6">
-                                        {this.state.books.slice(this.state.secondColumnStart)}
-                                    </div>
+            <Layout style={{ height: "625px" }}>
+            <Header className="header">
+                <div className="logo" style={{ float: "left" }}>
+                    <img src={MainLogo} alt="" style={{ width: "40%" }} />
+                </div>
+                <div className="search-bar">
+                    <Search className="search-bar-input" placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
+                </div>
+            </Header>
+            <Layout>
+                <Sider className="site-layout-background" width={200} >
+                    <NavBarComp/>
+                </Sider>
+                <Layout style={{ padding: '24px 24px 24px' }}>
+                    <Content
+                        className="site-layout-background"
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 280,
+                        }}
+                    >
+                        <Col>
+                            <Row>
+                                {/* <Col><img src={Mockingbird} alt="" style={{ width: "60%" }} /></Col>
+                                    <Col> <img src={Gatsby} alt="" style={{ width: "60%" }} /> </Col>
+                                    <Col> <img src={TwoCities} alt="" style={{ width: "60%" }} /> </Col>
+                                    <Col> <img src={Misarables} alt="" style={{ width: "60%" }} /> </Col>
+                                    <Col> <img src={Cristo} alt="" style={{ width: "60%" }} /> </Col> */}
+                                {/* <Col> {this.state.books}</Col>
+                                <Col>{this.state.books} </Col> */}
+                                <div className="col-md-6">
+                                 {this.state.books}
+                                </div>
+                                <div className="col-md-6">
+                                   
+                                </div>
 
 
+                            </Row>
+                            {/* <Row>
+                                    <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>To Kill a Mockingbird</Col>
+                                    <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>The Great Gatsby</Col>
+                                    <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>A Tale of Two Cities</Col>
+                                    <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>Les Misarables</Col>
+                                    <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>The Count of Monte Cristo</Col>
                                 </Row>
-                                {/* <Row>
-                                        <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>To Kill a Mockingbird</Col>
-                                        <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>The Great Gatsby</Col>
-                                        <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>A Tale of Two Cities</Col>
-                                        <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>Les Misarables</Col>
-                                        <Col style={{ color: "#FFFF", margin: "15px 0px 0px 0px", fontWeight: "500" }}>The Count of Monte Cristo</Col>
-                                    </Row>
-                                    <Row>
-                                        <Col style={{ color: "#FFFF", fontWeight: "200" }}>Harper Lee</Col>
-                                        <Col style={{ color: "#FFFF", fontWeight: "200" }}>F. Scott Fitzgerald</Col>
-                                        <Col style={{ color: "#FFFF", fontWeight: "200" }}>Charles Dickens</Col>
-                                        <Col style={{ color: "#FFFF", fontWeight: "200" }}>Victor Hugo</Col>
-                                        <Col style={{ color: "#FFFF", fontWeight: "200" }}>Alexandre Dumas</Col>
-                                    </Row> */}
-                            </Col>
+                                <Row>
+                                    <Col style={{ color: "#FFFF", fontWeight: "200" }}>Harper Lee</Col>
+                                    <Col style={{ color: "#FFFF", fontWeight: "200" }}>F. Scott Fitzgerald</Col>
+                                    <Col style={{ color: "#FFFF", fontWeight: "200" }}>Charles Dickens</Col>
+                                    <Col style={{ color: "#FFFF", fontWeight: "200" }}>Victor Hugo</Col>
+                                    <Col style={{ color: "#FFFF", fontWeight: "200" }}>Alexandre Dumas</Col>
+                                </Row> */}
+                        </Col>
 
 
 
-                        </Content>
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
         );
     }
 }
