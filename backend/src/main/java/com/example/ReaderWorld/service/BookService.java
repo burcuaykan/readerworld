@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -133,6 +134,25 @@ public class BookService{
             userReadList.addAll(query1.get().get().toObjects(BookDTO.class));
         }
         return userReadList;
+    }
+
+    public boolean updateBook(BookDTO bookDTO) throws ExecutionException, InterruptedException {
+        //ISBN should be given
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        BookDTO book = getBook(bookDTO.getISBN());
+        if(bookDTO.getBookname() != null){book.setBookname(bookDTO.getBookname());}
+        if(bookDTO.getAuthor() != null){book.setAuthor(bookDTO.getAuthor());}
+        if(bookDTO.getPageNumber() != 0){book.setPageNumber(bookDTO.getPageNumber());}
+        if(bookDTO.getPublicationDate() != null){book.setPublicationDate(bookDTO.getPublicationDate());}
+        if(bookDTO.getPublisher() != null){book.setPublisher(bookDTO.getPublisher());}
+        dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
+        return true;
+    }
+
+    public boolean deleteBook(String ISBN) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection(COL_NAME).document(ISBN).delete();
+        return true;
     }
 
 }

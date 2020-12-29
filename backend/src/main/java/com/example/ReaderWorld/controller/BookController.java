@@ -70,4 +70,16 @@ public class BookController {
     public ResponseEntity<?> addReadList(@RequestBody ReadListDTO readListDTO){
         return ResponseEntity.ok(bookService.addReadList(readListDTO));
     }
+
+    @PutMapping("")
+    @ResponseBody
+    public ResponseEntity<?> updateBook(@RequestBody BookDTO bookDTO) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(bookService.updateBook(bookDTO));
+    }
+
+    @DeleteMapping("")
+    @ResponseBody
+    public ResponseEntity<?> deleteBook(@RequestParam(name="isbn") String ISBN) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(bookService.deleteBook(ISBN));
+    }
 }
