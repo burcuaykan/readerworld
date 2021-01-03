@@ -10,6 +10,7 @@ public class BookDTO {
     private String ISBN;
     private Date publicationDate;
     private String publisher;
+    private String imageLink;
     private List<CommentDTO> comments;
 
 
@@ -68,5 +69,13 @@ public class BookDTO {
 
     public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imagelink) {
+        this.imageLink = imagelink;
     }
 }
