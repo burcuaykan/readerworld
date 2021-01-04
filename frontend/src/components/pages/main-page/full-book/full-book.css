@@ -5,3 +5,7 @@
     box-shadow: 0 2px 3px #ccc;
     text-align: center;
 }
+.rating-content{
+    background-color: #80808066;
+    width: fit-content;
+}

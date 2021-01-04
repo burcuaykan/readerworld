@@ -66,7 +66,7 @@ export default class ProfileContent extends Component {
         const bio = "I love reading books and comment about them as I read. “When you play the game of thrones, you win or you die. There is no middle ground.” — George R. R. Martin";
 
         return (
-            <Layout style={{ height: "625px" }}>
+            <Layout style={{ height: "auto" }}>
             <Header className="header">
                 <div className="logo" style={{ float: "left" }}>
                     <img src={MainLogo} alt="" style={{ width: "40%" }} />

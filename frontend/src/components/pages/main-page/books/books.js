@@ -16,7 +16,7 @@ class Books extends Component {
             .then(res => {
                  console.log(res.data);
                 // const data = res.data.slice(0, 4);
-                const books = res.data.slice(0, 4);
+                const books = res.data.slice(2, 10);
                 // const books = data
                 // const books = data.map(book =>
                 //     <div key={book.isbn}>
@@ -48,6 +48,7 @@ class Books extends Component {
                     <Link to={'/' + book.isbn} key={i}>
                         <Book
                             key={i}
+                            isbn={book.isbn}
                             bookname={book.bookname}
                             author={book.author}
                             clicked={() => this.bookSelectHandler(book.isbn)} />

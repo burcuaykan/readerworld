@@ -11,7 +11,6 @@ import NavBarComp from '../../navigation-bar/navigation-bar.js'
 import { Input } from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios'
-import BookInfoContent from "../book-info/book-info";
 import Books from "./books/books";
 
 const { Search } = Input;
@@ -24,7 +23,7 @@ export default class MainPage extends Component {
 
     render() {
         return (
-            <Layout style={{ height: "625px" }}>
+            <Layout style={{ height: "auto" }}>
                 <Header className="header">
                     <div className="logo" style={{ float: "left" }}>
                         <img src={MainLogo} alt="" style={{ width: "40%" }} />

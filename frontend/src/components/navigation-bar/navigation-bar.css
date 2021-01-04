@@ -11,6 +11,12 @@
     font-size: 18px;
 
 }
+.ant-menu-item a{
+    color: #FFFFFF!important;
+    font-size: 18px;
+
+}
+
 .ant-menu-inline .ant-menu-item::after{
     border-right:3px solid #FD823C!important;
 } 
