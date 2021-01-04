@@ -7,11 +7,6 @@ import { Row, Col } from 'react-bootstrap';
 import { Input } from 'antd';
 import axios from 'axios';
 
-import Aleyna from '../../../images/footer-images/aleyna.png';
-import Burcu from '../../../images/footer-images/burcu.png';
-import Onur from '../../../images/footer-images/onur.png';
-import Kaan from '../../../images/footer-images/kaan.png';
-import BabyYoda from '../../../images/baby-yoda.png';
 import Khaleesi from '../../../images/khaleesi.png';
 
 
@@ -102,10 +97,10 @@ export default class ProfileContent extends Component {
 
                         </Row>
                         <Row>
-                        <div class="container-grid">
+                        <div className="container-grid">
                             
-                            <div class="list-col">
-                                <Col class="list-col">
+                            <div className="list-col">
+                                <Col className="list-col">
                                     
                                     <p className="lists" > Lists</p>
                                     <Col className="mini-list-col">
@@ -137,7 +132,7 @@ export default class ProfileContent extends Component {
                                 </Col>
                             </div>
                            
-                            <div class="content-col">
+                            <div className="content-col">
                                 <p className="comments" > Comments</p>
                                 <Row className="comment-row">
                                     <Col>
