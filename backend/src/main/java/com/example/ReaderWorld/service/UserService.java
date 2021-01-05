@@ -36,21 +36,26 @@ public class UserService implements UserDetailsService {
 
 
     public boolean saveUser(UserDTO user) throws InterruptedException, ExecutionException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        UserDTO user_saved = new UserDTO();
+        try {
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            UserDTO user_saved = new UserDTO();
 
-        if(getUser(user.getEmail()) != null){
-            return false;
+            if (getUser(user.getEmail()) != null) {
+                return false;
+            }
+
+            user_saved.setEmail(user.getEmail());
+            user_saved.setPassword(encoder.encode(user.getPassword()));
+            user_saved.setGivenName(user.getGivenName());
+            user_saved.setFamilyName(user.getFamilyName());
+            user_saved.setBirthDay(user.getBirthDay());
+
+            ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user_saved.getEmail()).set(user_saved);
+            return true;
         }
-
-        user_saved.setEmail(user.getEmail());
-        user_saved.setPassword(encoder.encode(user.getPassword()));
-        user_saved.setGivenName(user.getGivenName());
-        user_saved.setFamilyName(user.getFamilyName());
-        user_saved.setBirthDay(user.getBirthDay());
-
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user_saved.getEmail()).set(user_saved);
-        return true;
+        catch (Exception e){
+            throw new IllegalArgumentException("Error in the user.");
+        }
     }
 
     public UserDTO getUser(String email) throws InterruptedException, ExecutionException {
@@ -63,7 +68,7 @@ public class UserService implements UserDetailsService {
             user = document.toObject(UserDTO.class);
             System.out.println("User with email  " + email);
             return user;
-        }else {
+        } else {
             System.out.println("No User with email " + email);
             return null;
         }

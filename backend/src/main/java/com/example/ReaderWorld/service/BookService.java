@@ -138,21 +138,41 @@ public class BookService{
 
     public boolean updateBook(BookDTO bookDTO) throws ExecutionException, InterruptedException {
         //ISBN should be given
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        BookDTO book = getBook(bookDTO.getISBN());
-        if(bookDTO.getBookname() != null){book.setBookname(bookDTO.getBookname());}
-        if(bookDTO.getAuthor() != null){book.setAuthor(bookDTO.getAuthor());}
-        if(bookDTO.getPageNumber() != 0){book.setPageNumber(bookDTO.getPageNumber());}
-        if(bookDTO.getPublicationDate() != null){book.setPublicationDate(bookDTO.getPublicationDate());}
-        if(bookDTO.getPublisher() != null){book.setPublisher(bookDTO.getPublisher());}
-        dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
-        return true;
+        try {
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            BookDTO book = getBook(bookDTO.getISBN());
+            if (bookDTO.getBookname() != null) {
+                book.setBookname(bookDTO.getBookname());
+            }
+            if (bookDTO.getAuthor() != null) {
+                book.setAuthor(bookDTO.getAuthor());
+            }
+            if (bookDTO.getPageNumber() != 0) {
+                book.setPageNumber(bookDTO.getPageNumber());
+            }
+            if (bookDTO.getPublicationDate() != null) {
+                book.setPublicationDate(bookDTO.getPublicationDate());
+            }
+            if (bookDTO.getPublisher() != null) {
+                book.setPublisher(bookDTO.getPublisher());
+            }
+            dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
+            return true;
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("Something is wrong in Book information");
+        }
     }
 
     public boolean deleteBook(String ISBN) throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        dbFirestore.collection(COL_NAME).document(ISBN).delete();
-        return true;
+        try {
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            dbFirestore.collection(COL_NAME).document(ISBN).delete();
+            return true;
+        }
+        catch (Exception e){
+            throw new IllegalArgumentException("Something is wrong in Book information");
+        }
     }
 
 }
