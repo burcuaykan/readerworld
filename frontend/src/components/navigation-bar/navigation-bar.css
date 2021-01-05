@@ -2,12 +2,21 @@
     background: #202124!important;
 }
 .ant-menu-item-selected {
+    height: 10px;
     color: #FFFFFF!important;
     background: #303031!important;
 }
 .ant-menu-item {
     color: #FFFFFF!important;
+    font-size: 18px;
+
 }
+.ant-menu-item a{
+    color: #FFFFFF!important;
+    font-size: 18px;
+
+}
+
 .ant-menu-inline .ant-menu-item::after{
     border-right:3px solid #FD823C!important;
 } 
