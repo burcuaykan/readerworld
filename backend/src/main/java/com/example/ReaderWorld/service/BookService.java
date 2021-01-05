@@ -34,6 +34,7 @@ public class BookService{
         bookSaved.setISBN(bookDTO.getISBN());
         bookSaved.setPublicationDate(bookDTO.getPublicationDate());
         bookSaved.setPublisher(bookDTO.getPublisher());
+        bookSaved.setImageLink(bookDTO.getImageLink());
         bookSaved.setComments(Collections.emptyList());
 
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(bookSaved.getISBN()).set(bookSaved);
@@ -156,6 +157,7 @@ public class BookService{
             if (bookDTO.getPublisher() != null) {
                 book.setPublisher(bookDTO.getPublisher());
             }
+            if(bookDTO.getImageLink() != null){book.setImageLink(bookDTO.getImageLink());}
             dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
             return true;
         }
