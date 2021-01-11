@@ -144,6 +144,7 @@ class FullBook extends Component {
                     <img src={"http://covers.openlibrary.org/b/isbn/" + this.state.loadedPost.isbn + "-L.jpg?default=false"} alt="" style={{ width: "20%" }} id="imageBox" />
                     <h1>{this.state.loadedPost.bookname}</h1>
                     <p>{this.state.loadedPost.author}</p>
+                    <p>{this.state.loadedPost.isbn}</p>
                 </div>
 
             );

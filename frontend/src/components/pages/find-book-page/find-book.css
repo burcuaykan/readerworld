@@ -1,0 +1,15 @@
+.search-input{
+    width: auto;
+    margin-top: 1rem;
+}
+.ant-input-group-addon {
+    background: transparent!important;
+}
+.not-found-content{
+    text-align: center;
+    align-items: center;
+}
+.not-found-title{
+    color: #8b3b0c;
+    font-size: large;
+}
