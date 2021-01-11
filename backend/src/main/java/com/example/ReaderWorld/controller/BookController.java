@@ -27,6 +27,15 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
+
+    @GetMapping("/search")
+    @ResponseBody
+    public ResponseEntity<?> getBookByName(@RequestParam(name="bookname") String ISBN) throws ExecutionException, InterruptedException {
+        List<BookDTO> book = bookService.getBookByName(ISBN);
+        return ResponseEntity.ok(book);
+    }
+
+
     @GetMapping("/random")
     @ResponseBody
     public ResponseEntity<?> getBooks() throws ExecutionException, InterruptedException {

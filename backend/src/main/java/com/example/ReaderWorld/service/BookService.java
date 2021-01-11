@@ -58,6 +58,30 @@ public class BookService{
         }
     }
 
+    public List<BookDTO> getBookByName(String bookname) throws InterruptedException, ExecutionException {
+
+
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        int strlength = bookname.length();
+        String strFrontCode = bookname.substring(0, strlength-1);
+        String strEndCode = bookname.substring(strlength-1, bookname.length());
+
+        String startcode = bookname;
+        String endcode= strFrontCode + (char)(strEndCode.charAt(0) + 1);
+
+        System.out.println("start code" + startcode);
+        System.out.println("end code" + endcode);
+        System.out.println("bookname" + bookname);
+        Query query = dbFirestore.collection(COL_NAME).whereGreaterThanOrEqualTo("bookname", startcode)
+                .whereLessThan("bookname", endcode);
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(BookDTO.class);
+
+    }
+
+
     public List<BookDTO> getBooks(int nBooks) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference collection = dbFirestore.collection(COL_NAME);
@@ -120,19 +144,42 @@ public class BookService{
     }
 
 
-    public List<BookDTO> getReadList() throws ExecutionException, InterruptedException {
+    public List<ReadListDTO> getReadList() throws ExecutionException, InterruptedException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference readList = dbFirestore.collection("ReadList");
         Query query = readList.whereEqualTo("email",auth.getName());
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
-        List<BookDTO> userReadList = new ArrayList<>();
+        List<ReadListDTO> userReadList = new ArrayList<>();
 
         for(DocumentSnapshot document : querySnapshot.get().getDocuments()){
+
             CollectionReference books = dbFirestore.collection(COL_NAME);
             Query query1 = books.whereEqualTo("isbn", document.get("isbn"));
-            userReadList.addAll(query1.get().get().toObjects(BookDTO.class));
+
+            List<BookDTO> bookDTOS = query1.get().get().toObjects(BookDTO.class);
+
+
+            for(BookDTO book: bookDTOS){
+                ReadListDTO rl = new ReadListDTO();
+                rl.setISBN(book.getISBN());
+                rl.setEmail(auth.getName());
+                if(document.get("deadline") != null){
+                    rl.setDeadline(document.getDate("deadline"));
+                }
+                if(rl.getDeadline() == null) {
+                    rl.setDeadlineOver(false);
+                }
+                else if(rl.getDeadline().compareTo(new Date()) < 0){
+                    rl.setDeadlineOver(true);
+                }
+                else{
+                    rl.setDeadlineOver(false);
+                }
+                rl.setBookInformation(book);
+                userReadList.add(rl);
+            }
         }
         return userReadList;
     }

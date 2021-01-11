@@ -6,6 +6,7 @@ import com.example.ReaderWorld.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
@@ -18,12 +19,18 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping("")
+    @GetMapping("/user")
     @ResponseBody
     public ResponseEntity<?> getUser(@RequestParam(name="email") String email) throws ExecutionException, InterruptedException {
         UserDTO user = userService.getUser(email);
         return ResponseEntity.ok(user);
+    }
 
+    @GetMapping("")
+    @ResponseBody
+    public ResponseEntity<?> getUser() throws ExecutionException, InterruptedException {
+        UserDTO user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("")
