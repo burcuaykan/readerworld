@@ -8,6 +8,7 @@ public class UserDTO {
     private String givenName;
     private String familyName;
     private String birthDay;
+    private String userbio;
 
     public String getGivenName() {
         return givenName;
@@ -31,6 +32,14 @@ public class UserDTO {
 
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public String getUserbio() {
+        return userbio;
+    }
+
+    public void setUserbio(String userbio) {
+        this.userbio = userbio;
     }
 
     public String getEmail() {

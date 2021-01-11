@@ -1,6 +1,7 @@
 package com.example.ReaderWorld.controller;
 
 
+import com.example.ReaderWorld.model.BookDTO;
 import com.example.ReaderWorld.model.UserDTO;
 import com.example.ReaderWorld.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,12 @@ public class UserController {
                 public String saved = "false";
             });
         }
+    }
+
+    @PutMapping("")
+    @ResponseBody
+    public ResponseEntity<?> updateUserbio(@RequestBody UserDTO userDTO) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(userService.updateUserbio(userDTO));
     }
 
 }

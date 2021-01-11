@@ -1,5 +1,6 @@
 package com.example.ReaderWorld.service;
 
+import com.example.ReaderWorld.model.BookDTO;
 import com.example.ReaderWorld.model.MyUserDetails;
 import com.example.ReaderWorld.model.UserDTO;
 import com.google.api.core.ApiFuture;
@@ -11,6 +12,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,6 +52,7 @@ public class UserService implements UserDetailsService {
             user_saved.setGivenName(user.getGivenName());
             user_saved.setFamilyName(user.getFamilyName());
             user_saved.setBirthDay(user.getBirthDay());
+            user_saved.setUserbio(user.getUserbio());
 
             ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user_saved.getEmail()).set(user_saved);
             return true;
@@ -89,6 +92,22 @@ public class UserService implements UserDetailsService {
         }
         else{
             throw new UsernameNotFoundException("Kullanıcı bulunamadı,loadUserByUsername username=" + email);
+        }
+    }
+
+    public boolean updateUserbio(UserDTO userDTO) throws ExecutionException, InterruptedException {
+        //email should be given
+        try {
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            UserDTO user = getUser(userDTO.getEmail());
+            if (userDTO.getUserbio() != null) {
+                user.setUserbio(userDTO.getUserbio());
+            }
+            dbFirestore.collection(COL_NAME).document(user.getEmail()).set(user);
+            return true;
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("Something is wrong in User information");
         }
     }
 }
