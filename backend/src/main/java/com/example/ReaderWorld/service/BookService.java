@@ -93,6 +93,16 @@ public class BookService{
     }
 
 
+    public List<BookDTO> getAllBooks() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference collection = dbFirestore.collection(COL_NAME);
+        ApiFuture<QuerySnapshot> future = collection.get();
+        QuerySnapshot document = future.get();
+
+        return document.toObjects(BookDTO.class);
+    }
+
+
     public boolean saveComment(CommentDTO commentDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         BookDTO book = getBook(commentDTO.getISBN());

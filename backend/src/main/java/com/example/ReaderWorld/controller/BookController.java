@@ -44,6 +44,15 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
+
+    @GetMapping("/all")
+    @ResponseBody
+    public ResponseEntity<?> getAllBooks() throws ExecutionException, InterruptedException{
+        List<BookDTO> books = bookService.getAllBooks();
+        return ResponseEntity.ok(books);
+    }
+
+
     @GetMapping("/like")
     @ResponseBody
     public ResponseEntity<?> getLikes() throws ExecutionException, InterruptedException {
