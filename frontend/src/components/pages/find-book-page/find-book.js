@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import MainLogo from '../../../images/mainpage-logo.svg';
 import { Input } from 'antd';
 import NavBarComp from '../../navigation-bar/navigation-bar.js'
+import { NavLink } from "react-router-dom";
 const { Search } = Input;
 
 const { Header, Content, Sider } = Layout;
@@ -12,7 +13,8 @@ const { Header, Content, Sider } = Layout;
 export default class FindBook extends Component {
     state = {
         loadedPost: null,
-        notfound: ""
+        notfound: "",
+        addbook: ""
     };
     onSearch = value =>{
         axios.get(`http://localhost:8080/api/books/?isbn=` + value,
@@ -25,7 +27,8 @@ export default class FindBook extends Component {
                                 this.setState({ loadedPost: response.data });
                             }
                             else{
-                                this.setState({ notfound: "Book is not found :(" });
+                                this.setState({ notfound: "Book is not found :(", addbook: "If you want, you can add this book to ReaderWorld!" });
+                                document.getElementById("add-book").style.display = "inline-block";
                             }
                             
                             
@@ -53,6 +56,7 @@ export default class FindBook extends Component {
             book = (
                 <div className="not-found-content" style={{marginTop: "2rem"}}>
                     <h1 className="not-found-title">{this.state.notfound}</h1>
+                    <NavLink id="add-book" style={{display: "none"}} className="add-book-link" to="/main-page" exact>{this.state.addbook}</NavLink>
                 </div>
             )
         }
