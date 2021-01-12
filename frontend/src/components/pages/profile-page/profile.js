@@ -18,48 +18,105 @@ const { Header, Content, Sider } = Layout;
 const onSearch = value => console.log(value);
 
 export default class ProfileContent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: [],
-            secondColumnStart:2
-        };
-    }
+    state = {
+        loadedPostUser: null,
+        loadedPostReadList: [],
+        notfound: ""
+    };
+    
 
     componentDidMount() {
-        const email = 'user34@user.com' //for testing
-        axios.get(`http://localhost:8080/api/users/?email=` + email,
+        console.log(this.props);
+        
+        axios.get(`http://localhost:8080/api/books/readlist/`,
         {
-        withCredentials: true
+            withCredentials: true
         })
-            .then(res => {
-                console.log(res.data);
+        .then(response => {
+            
+            console.log(response.data);
                 // const data = res.data.slice(0, 4);
-                const data = [res.data]
-                const user = data.map(u =>
-                    <div key={u.email}>
-                         {/* <img src={} alt="" /> */}
-                        <p>{u.email}</p>
-                       
-                    </div>
-                )
+                const readlist = response.data.map(readlist =>
+                     <div key={readlist.isbn}>
+                          {/* <img src={} alt="" /> */}
+                         <p>- {readlist.bookInformation.bookname}</p>
+
+                     </div>);
+                // )
                 this.setState({
-                    user,
+                    loadedPostReadList: readlist,
                     error: null
                 });
-            })
-            .catch(err => {
-                this.setState({
-                    error: err
-                });
+            
+        })
+        .catch(err => {
+            this.setState({
+                error: err
             });
+        });
+
+        axios.get(`http://localhost:8080/api/users/`,
+        {
+            withCredentials: true
+        })
+        .then(response => {
+            console.log(response);
+            if(response.data){
+                this.setState({ loadedPostUser: response.data });
+            }
+            else{
+                this.setState({ notfound: "User is not found :(" });
+            }
+            
+            
+        })
+        .catch(err => {
+            this.setState({
+                error: err
+            });
+        });
+
+        
+            
     }
     render() {
-        const imgsrc = Khaleesi;
-        const name = "Daenerys Targaryen";
-        const username = "@khaleesi";
-        const bio = "I love reading books and comment about them as I read. “When you play the game of thrones, you win or you die. There is no middle ground.” — George R. R. Martin";
+        //const imgsrc = Khaleesi;
+        //const name = "Daenerys Targaryen";
+        //const username = "@khaleesi";
+        //const bio = "I love reading books and comment about them as I read. “When you play the game of thrones, you win or you die. There is no middle ground.” — George R. R. Martin";
+        
+        let user = <p style={{ textAlign: 'center' }}></p>;
+        if (this.state.loadedPostUser) {
+            user = (
+                <div>
+                    <p className="user-name">{this.state.loadedPostUser.email}</p>
+                </div>
 
+            );
+        }
+        else{
+            user = (
+                <div style={{marginTop: "2rem"}}>
+                    <h1>{this.state.notfound}</h1>
+                </div>
+            )
+        }
+        let readlist = <p style={{ textAlign: 'center' }}></p>;
+        if (this.state.loadedPostReadList) {
+            readlist = (
+                <div>
+                    <p className="book-names">{this.state.loadedPostReadList}</p>
+                </div>
+
+            );
+        }
+        else{
+            readlist = (
+                <div style={{marginTop: "10rem"}}>
+                    <p className="book-names">{this.state.notfound}</p>
+                </div>
+            )
+        }
         return (
             <Layout style={{ height: "auto" }}>
             <Header className="header">
@@ -85,13 +142,13 @@ export default class ProfileContent extends Component {
                         }}
                     >
                         <Row className="bio-row">
-                                <img src={imgsrc} alt="" className="footer-image" style={{ height:"10%", width: "10%", paddinTop:"26px", paddingBottom: "0px", marginRight: "10px", marginTop: "10px" }}/>
+                                {/*<img src={imgsrc} alt="" className="footer-image" style={{ height:"10%", width: "10%", paddinTop:"26px", paddingBottom: "0px", marginRight: "10px", marginTop: "10px" }}/>*/}
                             <Col>
-                                <p className="user-name" > {name}</p>
-                                <p className="username" > {username}</p>
+                                <p className="user-name" > {user}</p>
+                                {/*<p className="username" > {username}</p>*/}
 
                                 {/*<p style={{fontSize:"12px", paddingTop:"0px", margin:"0" }} > burcuaykan13@gmail.com</p>*/}
-                                <p className="bio"> {bio} </p>
+                                {/*<p className="bio"> {bio} </p>*/}
 
                             </Col>
 
@@ -105,30 +162,10 @@ export default class ProfileContent extends Component {
                                     <p className="lists" > Lists</p>
                                     <Col className="mini-list-col">
                                     <p className="mini-lists" > Finished</p>
-                                    <p className="book-names" > - The Zen of CSS Design: Visual Enlightenment for the Web </p>
-                                    <p className="book-names" > - Ready Player Two</p>
-                                    <p className="book-names" > - The Illustrated Alchemist: A Fable about Following Your Dream</p>
-                                    <p className="book-names" > - We Were Not Like Other People</p>
-                                    </Col>
-                                    <Col className="mini-list-col">
-                                    <p className="mini-lists" > To be read</p>
-                                    <p className="book-names" > - Cryptonomicon</p>
-                                    <p className="book-names" > - The Game: Penetrating the Secret Society of Pickup Artists</p>
-                                    <p className="book-names" > - Zen and the Art of Motorcycle Maintenance: An Inquiry Into Values (Phaedrus  #1)</p>
-                                    <p className="book-names" > - Quicksilver (The Baroque Cycle  #1)</p>
-                                    <p className="book-names" > ...</p>
-                                    </Col>
+                                    <p className="book-names" > {readlist} </p>
 
-                                    <Col className="mini-list-col">
-                                    <p className="mini-lists" > Wishlist</p>
-                                    <p className="book-names" > - The Zebra Wall</p>
-                                    <p className="book-names" > - The Confusion (The Baroque Cycle  #2)</p>
-                                    <p className="book-names" > - The Known World</p>
-                                    <p className="book-names" > - How to Buy  Sell & Profit on eBay: Kick-Start Your Home-Based Business in Just Thirty Days</p>
-                                    <p className="book-names" > ...</p>
                                     </Col>
-
-
+                                    
                                 </Col>
                             </div>
                            
@@ -145,28 +182,11 @@ export default class ProfileContent extends Component {
                                     </Col>
                                     
                                 </Row>
-                                <Row className="comment-row">
-                                    <Col>
-                                        <p className="comment-book-name" >We Were Not Like Other People</p>
-                                        <p className="profile-comment-rating" >Rating: 4.3</p>                                    
-                                        <p className="profile-comments" >
-                                            I thought this is a kid's book, but I was wrong. This little book (215 pp.) is a whirlwind slice of life. You never know what you will find out about in this life.
-                                        </p>
-                                    </Col>
-                                </Row>
-                                <Row className="comment-row">
-                                    <Col>
-                                        <p className="comment-book-name" >The Illustrated Alchemist: A Fable about Following Your Dream</p>
-                                        <p className="profile-comment-rating" >Rating: 4.8</p>                                    
-                                        <p className="profile-comments" >
-                                            Whenever I felt lost, depressed, sad, numb, conflicted, frustrated, exhausted, I get this book into my hands and follow the journey of young shepherd Santiago who is looking for a worldly treasure. As like T.S. Eliot says: “ The journey not the arrival matters.”                                        </p>
-                                    </Col>
-                                </Row>
+                                
                             </div>
                             
                         </div>
-                        </Row>
-                        {/*Profile page for the user with email: {this.state.user}*/}                                   
+                        </Row>                            
                     </Content>
                 </Layout>
             </Layout>
