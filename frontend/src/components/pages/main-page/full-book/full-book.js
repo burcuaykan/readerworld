@@ -13,6 +13,8 @@ import Aleyna from '../../../../images/footer-images/aleyna.png';
 import Burcu from '../../../../images/footer-images/burcu.png';
 import { Comment, Avatar, Form, Button, List } from 'antd';
 import Khaleesi from '../../../../images/khaleesi.png';
+import { Row, Col } from 'react-bootstrap';
+
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
@@ -84,6 +86,24 @@ class FullBook extends Component {
         submitting: false,
         value: '',
     };
+    onClick = () => {
+        axios.post('http://localhost:8080/api/books/readlist',
+            // userObject,
+            {
+                isbn: this.state.loadedPost.isbn,
+            },
+             {
+            
+            withCredentials: true
+        })
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                    console.log(error)
+                 }); 
+        document.getElementById("add-to-readlist").value="Added to readlist"; 
+        document.getElementById("add-to-readlist").disabled=true;
+    }
 
     handleSubmit = () => {
         if (!this.state.value) {
@@ -173,9 +193,14 @@ class FullBook extends Component {
                             }}
                         >
                             {book}
-                            <div className="rating-content">
-                                <p>Rate this book :</p>
-                                <Rate /></div>
+                            <Row>
+                                <div className="rating-content">
+                                    <p>Rate this book :</p>
+                                    <Rate />
+                                </div>
+                                
+                                <input type="button" className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={this.onClick}></input> 
+                            </Row>
                             <div>
                                 <List
                                     className="comment-list"

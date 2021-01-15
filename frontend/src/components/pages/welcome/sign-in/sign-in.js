@@ -6,7 +6,9 @@ import { Tabs } from 'antd';
 import WelcomeLogo from '../../../../images/welcome-icon.svg';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
+import { waitForDebugger } from "inspector";
 const { TabPane } = Tabs;
+
 
 export default class SignIn extends Component {
 
@@ -44,8 +46,8 @@ export default class SignIn extends Component {
         axios.post('http://localhost:8080/login',
             // userObject,
             querystring.stringify({
-                username: 'user29@user.com', //gave the values directly for testing
-                password: 'user29',
+                username: this.state.username, //gave the values directly for testing
+                password: this.state.password,
             }),
              {
             headers: {
@@ -81,8 +83,8 @@ export default class SignIn extends Component {
         axios.post('http://localhost:8080/api/users/',
             // userObject,
             {
-                email: 'user35@user.com', //gave the values directly for testing
-                password: 'user35',
+                email: this.state.username, //gave the values directly for testing
+                password: this.state.password,
             },
              {
             headers: {
@@ -92,14 +94,38 @@ export default class SignIn extends Component {
         })
             .then((response) => {
                 this.setState({ signUp: true });
+                
                 console.log(response);
             }).catch((error) => {
                     console.log(error)
                  });    
+
+                 var querystring = require('querystring');
+                 
+        // TODO: burcu add wait 
+
+        axios.post('http://localhost:8080/login',
+            // userObject,
+            querystring.stringify({
+                username: this.state.username, //gave the values directly for testing
+                password: this.state.password,
+            }),
+             {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            withCredentials: true
+        })
+            .then((response) => {
+                this.setState({ loggedIn: true });
+                console.log(response);
+            }).catch((error) => {
+                    console.log(error)
+                 });
     }
 
     render() {
-        if (this.state.loggedIn || this.state.signUp ) {
+        if (this.state.loggedIn) {
             return <Redirect to='/main-page' />
         }
 

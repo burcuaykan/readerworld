@@ -6,6 +6,10 @@ import NavBarComp from '../../navigation-bar/navigation-bar.js'
 import { Row, Col } from 'react-bootstrap';
 import { Input } from 'antd';
 import axios from 'axios';
+import BooksPage from '../main-page/books/books.js'
+import { NavLink } from "react-router-dom";
+
+import {Button } from 'antd';
 
 import Khaleesi from '../../../images/khaleesi.png';
 
@@ -161,9 +165,10 @@ export default class ProfileContent extends Component {
                                     
                                     <p className="lists" > Lists</p>
                                     <Col className="mini-list-col">
-                                    <p className="mini-lists" > Finished</p>
-                                    <p className="book-names" > {readlist} </p>
-
+                                        <p className="mini-lists" > Finished</p>
+                                        <p className="book-names" > {readlist} </p>
+                                        <NavLink to="/main-page" exact> <Button className="add-book-button"> Add new book </Button></NavLink>
+                                    
                                     </Col>
                                     
                                 </Col>
