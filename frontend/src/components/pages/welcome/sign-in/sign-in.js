@@ -6,7 +6,6 @@ import { Tabs } from 'antd';
 import WelcomeLogo from '../../../../images/welcome-icon.svg';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
-import { waitForDebugger } from "inspector";
 const { TabPane } = Tabs;
 
 
