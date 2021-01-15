@@ -56,7 +56,7 @@ export default class FindBook extends Component {
             book = (
                 <div className="not-found-content" style={{marginTop: "2rem"}}>
                     <h1 className="not-found-title">{this.state.notfound}</h1>
-                    <NavLink id="add-book" style={{display: "none"}} className="add-book-link" to="/main-page" exact>{this.state.addbook}</NavLink>
+                    <NavLink id="add-book" style={{display: "none"}} className="add-book-link" to="/add-book" exact>{this.state.addbook}</NavLink>
                 </div>
             )
         }

@@ -1,0 +1,9 @@
+.add-book .ant-form-item-label > label {
+    color: black!important;
+    font-weight: bold;
+}
+
+.book-image{
+    width: 90%;
+    margin-right: 1rem;
+}
