@@ -14,7 +14,6 @@ public class BookDTO {
     private List<CommentDTO> comments;
 
 
-
     public String getAuthor() {
         return author;
     }

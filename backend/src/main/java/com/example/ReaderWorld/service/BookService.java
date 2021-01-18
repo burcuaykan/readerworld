@@ -78,8 +78,8 @@ public class BookService{
 
         QuerySnapshot queryDocumentSnapshots = query.get().get();
         return queryDocumentSnapshots.toObjects(BookDTO.class);
-
     }
+
 
 
     public List<BookDTO> getBooks(int nBooks) throws ExecutionException, InterruptedException {
@@ -194,6 +194,90 @@ public class BookService{
         return userReadList;
     }
 
+
+    public List<BookDTO> getBookByFilters(String authorName, Integer pageNumberMin, Integer pageNumberMax, Date minPublicationDate, Date maxPublicationDate) throws InterruptedException, ExecutionException {
+
+
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        List<BookDTO> res = new ArrayList<>();
+        List<BookDTO> tmpAuthor = new ArrayList<>();
+        List<BookDTO> tmpPageNumber = new ArrayList<>();
+        List<BookDTO> tmpPublicationDate = new ArrayList<>();
+
+        boolean authorFlag = false;
+        boolean numberFlag = false;
+        boolean publicationFlag = false;
+        if (authorName != null) {
+            authorFlag = true;
+            int strlength = authorName.length();
+            String strFrontCode = authorName.substring(0, strlength - 1);
+            String strEndCode = authorName.substring(strlength - 1, authorName.length());
+
+            String startcode = authorName;
+            String endcode = strFrontCode + (char) (strEndCode.charAt(0) + 1);
+
+            Query query = dbFirestore.collection(COL_NAME).whereGreaterThanOrEqualTo("author", startcode)
+                    .whereLessThan("author", endcode);
+            QuerySnapshot queryDocumentSnapshots = query.get().get();
+            tmpAuthor.addAll(queryDocumentSnapshots.toObjects(BookDTO.class));
+        }
+
+        if (pageNumberMin!=null && pageNumberMax != null){
+            numberFlag = true;
+            Query query = dbFirestore.collection(COL_NAME).whereGreaterThanOrEqualTo("pageNumber", pageNumberMin)
+                    .whereLessThanOrEqualTo("pageNumber", pageNumberMax);
+            tmpPageNumber.addAll(query.get().get().toObjects(BookDTO.class));
+        }
+        if(minPublicationDate != null && maxPublicationDate != null){
+            publicationFlag = true;
+            Query query = dbFirestore.collection(COL_NAME).whereGreaterThan("publicationDate", minPublicationDate)
+                    .whereLessThan("publicationDate", maxPublicationDate);
+            tmpPublicationDate.addAll(query.get().get().toObjects(BookDTO.class));
+        }
+
+        if(!authorFlag && !publicationFlag){
+            res.addAll(tmpPageNumber);
+        }
+        else if(!numberFlag && !publicationFlag){
+            res.addAll(tmpAuthor);
+        }
+        else if(!authorFlag && ! numberFlag){
+            res.addAll(tmpPublicationDate);
+        }
+        else if(!publicationFlag){
+            for(BookDTO book: tmpAuthor){
+                if(Common.isIn(book.getISBN(), tmpPageNumber)){
+                    res.add(book);
+                }
+            }
+        }
+        else if(!authorFlag){
+            for(BookDTO book: tmpPageNumber){
+                if(Common.isIn(book.getISBN(), tmpPublicationDate)){
+                    res.add(book);
+                }
+            }
+        }
+        else if(!numberFlag){
+            for(BookDTO book: tmpAuthor){
+                if(Common.isIn(book.getISBN(), tmpPublicationDate)){
+                    res.add(book);
+                }
+            }
+        }
+        else{
+            for(BookDTO book: tmpAuthor){
+                if(Common.isIn(book.getISBN(), tmpPageNumber) && Common.isIn(book.getISBN(), tmpPublicationDate)){
+                    res.add(book);
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+
     public boolean updateBook(BookDTO bookDTO) throws ExecutionException, InterruptedException {
         //ISBN should be given
         try {
@@ -233,5 +317,8 @@ public class BookService{
             throw new IllegalArgumentException("Something is wrong in Book information");
         }
     }
+
+
+
 
 }

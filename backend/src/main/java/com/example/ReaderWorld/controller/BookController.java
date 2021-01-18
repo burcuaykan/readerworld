@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,6 +35,46 @@ public class BookController {
     @ResponseBody
     public ResponseEntity<?> getBookByName(@RequestParam(name="bookname") String ISBN) throws ExecutionException, InterruptedException {
         List<BookDTO> book = bookService.getBookByName(ISBN);
+        return ResponseEntity.ok(book);
+    }
+
+    @GetMapping("/filter")
+    @ResponseBody
+    public ResponseEntity<?> getBookByAuthor(@RequestParam(name="author", required = false) String authorName,
+                                             @RequestParam(name="pageMin", required = false) Integer pageNumberMin,
+                                             @RequestParam(name="pageMax", required = false) Integer pageNumberMax,
+                                             @RequestParam(name="yearMin", required = false) String yearMin,
+                                             @RequestParam(name="yearMax", required = false) String yearMax
+                                             ) throws ExecutionException, InterruptedException {
+        /** Example url usage
+
+         http://localhost:8080/api/books/filter?yearMin=1500&yearMax=2500&author=Leo&pageMin=250&pageMax=800
+
+         you can give any of the parameters in any order; however, it is required to give min and max for pageNumber
+         and also for year. One of the parameters is not enough. Both of them are inclusive.
+
+         **/
+
+        if((pageNumberMax==null || pageNumberMin == null) && authorName == null && (yearMin==null || yearMax == null)){
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+        if((pageNumberMin == null && pageNumberMax != null) || (pageNumberMin!=null && pageNumberMax==null) ){
+            throw new IllegalArgumentException("You didnt give both pageNumbers");
+        }
+        if((yearMin == null && yearMax != null) || (yearMin!=null && yearMax==null) ){
+            throw new IllegalArgumentException("You didnt give both yearNumbers");
+        }
+        Date dateStart = null;
+        Date dateEnd = null;
+        if(yearMin != null && yearMax != null){
+            int year = Integer.parseInt(yearMin);
+            System.out.println(year);
+            dateStart = new Date(Integer.parseInt(yearMin)-1900-1, Calendar.DECEMBER,31);
+            dateEnd = new Date(Integer.parseInt(yearMax)+1-1900, Calendar.JANUARY,1);
+        }
+
+
+        List<BookDTO> book = bookService.getBookByFilters(authorName, pageNumberMin, pageNumberMax,dateStart, dateEnd);
         return ResponseEntity.ok(book);
     }
 
