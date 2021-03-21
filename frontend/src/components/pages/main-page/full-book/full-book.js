@@ -10,7 +10,7 @@ import moment from 'moment';
 import { Rate } from 'antd';
 // import Aleyna from '../../../../images/footer-images/aleyna.png';
 // import Burcu from '../../../../images/footer-images/burcu.png';
-import { Comment, Avatar, Form, Button, List } from 'antd';
+import { Comment, Form, Button, List } from 'antd';
 import { Row } from 'react-bootstrap';
 
 const { Search } = Input;
@@ -41,39 +41,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </>
 );
 
-// const data = [
-//     {
-//         actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-//         author: 'Burcu Aykan',
-//         avatar: Burcu,
-//         content: (
-//             <p>
-//                 This is great book, and you need to read it.
-//             </p>
-//         ),
-//         datetime: (
-//             <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-//                 <span>{moment().subtract(1, 'days').fromNow()}</span>
-//             </Tooltip>
-//         ),
-//     },
-//     {
-//         actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-//         author: 'Aleyna Bozkurt',
-//         avatar: Aleyna,
-//         content: (
-//             <p>
-//                 It’s incredibly rare that I come across a book that ticks all my boxes. Good characters. Great setting. Wonderful story.
-//                 This book really lived up to the hype!
-//             </p>
-//         ),
-//         datetime: (
-//             <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-//                 <span>{moment().subtract(2, 'days').fromNow()}</span>
-//             </Tooltip>
-//         ),
-//     },
-// ];
 
 const onSearch = value => console.log(value);
 
@@ -86,7 +53,6 @@ class FullBook extends Component {
     };
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
-            // userObject,
             {
                 isbn: this.state.loadedPost.isbn,
             },
@@ -124,6 +90,21 @@ class FullBook extends Component {
             }).catch((error) => {
                 console.log(error)
             });
+
+        setTimeout(() => {
+            this.setState({
+                submitting: false,
+                value: '',
+                // comments: [
+                //     {   
+                //         commentAuthor: "hello",
+                //         commentBody: <p>{this.state.value}</p>,
+                //         CommentTime: "moment().fromNow()",
+                //     },
+                //     ...this.state.comments,
+                // ],
+            });
+        }, 1000);
     };
 
     handleChange = e => {
@@ -153,9 +134,6 @@ class FullBook extends Component {
                         this.setState({ comments: response.data });
                         console.log(this.state.comments)
                     });
-
-                //This method does not work! I'll try again
-                    
                 // axios.all([
                 //     axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn),
                 //     axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn)
@@ -238,7 +216,6 @@ class FullBook extends Component {
                                 />
                             </div>
                             <>
-                               
                                 <Comment
                                     content={
                                         <Editor
