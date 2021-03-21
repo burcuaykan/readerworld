@@ -6,14 +6,12 @@ import MainLogo from '../../../../images/mainpage-logo.svg';
 import { Input } from 'antd';
 import NavBarComp from "../../../navigation-bar/navigation-bar.js";
 import './full-book.css';
-import { Tooltip } from 'antd';
 import moment from 'moment';
 import { Rate } from 'antd';
-import Aleyna from '../../../../images/footer-images/aleyna.png';
-import Burcu from '../../../../images/footer-images/burcu.png';
-import { Comment, Avatar, Form, Button, List } from 'antd';
-import Khaleesi from '../../../../images/khaleesi.png';
-import { Row, Col } from 'react-bootstrap';
+// import Aleyna from '../../../../images/footer-images/aleyna.png';
+// import Burcu from '../../../../images/footer-images/burcu.png';
+import { Comment, Form, Button, List } from 'antd';
+import { Row } from 'react-bootstrap';
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -43,39 +41,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </>
 );
 
-const data = [
-    {
-        actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-        author: 'Burcu Aykan',
-        avatar: Burcu,
-        content: (
-            <p>
-                This is great book, and you need to read it.
-            </p>
-        ),
-        datetime: (
-            <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                <span>{moment().subtract(1, 'days').fromNow()}</span>
-            </Tooltip>
-        ),
-    },
-    {
-        actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-        author: 'Aleyna Bozkurt',
-        avatar: Aleyna,
-        content: (
-            <p>
-                It’s incredibly rare that I come across a book that ticks all my boxes. Good characters. Great setting. Wonderful story.
-                This book really lived up to the hype!
-            </p>
-        ),
-        datetime: (
-            <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                <span>{moment().subtract(2, 'days').fromNow()}</span>
-            </Tooltip>
-        ),
-    },
-];
 
 const onSearch = value => console.log(value);
 
@@ -90,45 +55,56 @@ class FullBook extends Component {
     };
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
-            // userObject,
             {
                 isbn: this.state.loadedPost.isbn,
             },
-             {
-            
-            withCredentials: true
-        })
+            {
+
+                withCredentials: true
+            })
             .then((response) => {
                 console.log(response);
             }).catch((error) => {
-                    console.log(error)
-                 }); 
-        document.getElementById("add-to-readlist").value="Added to readlist"; 
-        document.getElementById("add-to-readlist").disabled=true;
+                console.log(error)
+            });
+        document.getElementById("add-to-readlist").value = "Added to readlist";
+        document.getElementById("add-to-readlist").disabled = true;
     }
 
     handleSubmit = () => {
         if (!this.state.value) {
             return;
         }
+        axios.post('http://localhost:8080/api/books/comment',
+            {
+                isbn: this.state.loadedPost.isbn,
+                commentBody: this.state.value
+            },
+            {
 
-        this.setState({
-            submitting: true,
-        });
+                withCredentials: true
+            })
+            .then((response) => {
+                this.setState({
+                    submitting: true,
+                });
+                console.log(response);
+            }).catch((error) => {
+                console.log(error)
+            });
 
         setTimeout(() => {
             this.setState({
                 submitting: false,
                 value: '',
-                comments: [
-                    {
-                        author: 'Khaleesi',
-                        avatar: Khaleesi,
-                        content: <p>{this.state.value}</p>,
-                        datetime: moment().fromNow(),
-                    },
-                    ...this.state.comments,
-                ],
+                // comments: [
+                //     {   
+                //         commentAuthor: "hello",
+                //         commentBody: <p>{this.state.value}</p>,
+                //         CommentTime: "moment().fromNow()",
+                //     },
+                //     ...this.state.comments,
+                // ],
             });
         }, 1000);
     };
@@ -147,7 +123,7 @@ class FullBook extends Component {
     };
     
     componentDidMount() {
-        console.log(this.props);
+        //console.log(this.props);
         if (this.props.match.params.isbn) {
             if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.isbn !== this.props.isbn)) {
                 axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn,
@@ -158,6 +134,27 @@ class FullBook extends Component {
                         // console.log(response);
                         this.setState({ loadedPost: response.data });
                     });
+
+                axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn,
+                    {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        //console.log(response);
+                        this.setState({ comments: response.data });
+                        console.log(this.state.comments)
+                    });
+                // axios.all([
+                //     axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn),
+                //     axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn)
+                // ])
+                //     .then(axios.spread((data1, data2) => {
+                //         //this will be executed only when all requests are complete
+                //         console.log('Date created: ', data1.data);
+                //         console.log('Date created: ', data2.data);
+                //         this.setState({ loadedPost: data1.data });
+                //         this.setState({ comments: data2.data });
+                //     }));
             }
         }
     }
@@ -228,31 +225,22 @@ class FullBook extends Component {
                             <div>
                                 <List
                                     className="comment-list"
-                                    // header={`${data.length} replies`}
                                     itemLayout="horizontal"
-                                    dataSource={data}
+                                    dataSource={this.state.comments}
                                     renderItem={item => (
                                         <li>
                                             <Comment
-                                                actions={item.actions}
-                                                author={item.author}
-                                                avatar={item.avatar}
-                                                content={item.content}
-                                                datetime={item.datetime}
+                                                author={item.commentAuthor}
+                                                // avatar={item.avatar}
+                                                content={item.commentBody}
+                                                datetime={item.commentTime}
                                             />
                                         </li>
                                     )}
                                 />
                             </div>
                             <>
-                                {comments.length > 0 && <CommentList comments={comments} />}
                                 <Comment
-                                    avatar={
-                                        <Avatar
-                                            src={Khaleesi}
-                                            alt="Daenerys Targaryen"
-                                        />
-                                    }
                                     content={
                                         <Editor
                                             onChange={this.handleChange}

@@ -5,7 +5,6 @@ import java.util.Date;
 public class CommentDTO {
     private String ISBN;
     private Date commentTime;
-    private int likeCount;
     private String commentAuthor;
     private String commentBody;
 
@@ -33,13 +32,6 @@ public class CommentDTO {
         this.ISBN = ISBN;
     }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
 
     public Date getCommentTime() {
         return commentTime;
