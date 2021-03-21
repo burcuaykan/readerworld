@@ -102,22 +102,33 @@ public class BookService{
         return document.toObjects(BookDTO.class);
     }
 
+    public List<CommentDTO> getCommentsISBN(String ISBN) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        Query query = dbFirestore.collection("CommentBooks").whereEqualTo("isbn", ISBN);
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(CommentDTO.class);
+    }
+
+    public List<CommentDTO> getCommentsUser() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Query query = dbFirestore.collection("CommentBooks").whereEqualTo("commentAuthor", auth.getName());
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(CommentDTO.class);
+    }
 
     public boolean saveComment(CommentDTO commentDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        BookDTO book = getBook(commentDTO.getISBN());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         commentDTO.setCommentAuthor(auth.getName());
         commentDTO.setCommentTime(new Date());
-        if (book != null){
-            book.getComments().add(commentDTO);
-            dbFirestore.collection(COL_NAME).document(book.getISBN()).set(book);
-            return true;
-        }
-        else{
-            System.out.println("Comment: +" + commentDTO + " and book with isbn: " + commentDTO.getISBN() + "is not saved ") ;
-            return false;
-        }
+
+        dbFirestore.collection("CommentBooks").add(commentDTO);
+        return true;
     }
 
     public boolean addLike(LikeDTO likeDTO){

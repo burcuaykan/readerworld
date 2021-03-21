@@ -102,6 +102,17 @@ public class BookController {
         return ResponseEntity.ok(bookService.getLikes());
     }
 
+    @GetMapping("/comment")
+    @ResponseBody
+    public ResponseEntity<?> getCommentsISBN(@RequestParam(name="isbn", required = false) String ISBN) throws ExecutionException, InterruptedException {
+        if(ISBN != null){
+            return ResponseEntity.ok(bookService.getCommentsISBN(ISBN));
+        }
+        else{
+            return ResponseEntity.ok(bookService.getCommentsUser());
+        }
+    }
+
     @GetMapping("/readlist")
     @ResponseBody
     public ResponseEntity<?> getReadList() throws ExecutionException, InterruptedException {
@@ -143,4 +154,6 @@ public class BookController {
     public ResponseEntity<?> deleteBook(@RequestParam(name="isbn") String ISBN) throws ExecutionException, InterruptedException {
         return ResponseEntity.ok(bookService.deleteBook(ISBN));
     }
+
+
 }
