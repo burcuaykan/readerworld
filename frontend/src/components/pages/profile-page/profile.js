@@ -122,7 +122,7 @@ export default class ProfileContent extends Component {
             )
         }
         return (
-            <Layout style={{ height: "auto" }}>
+            <Layout style={{ height: "1024px" }}>
             <Header className="header">
                 <div className="logo" style={{ float: "left" }}>
                     <img src={MainLogo} alt="" style={{ width: "40%" }} />
@@ -160,7 +160,7 @@ export default class ProfileContent extends Component {
                         <Row>
                         <div className="container-grid">
                             
-                            <div className="list-col">
+                            <div>
                                 <Col className="list-col">
                                     
                                     <p className="lists" > Lists</p>
@@ -176,17 +176,16 @@ export default class ProfileContent extends Component {
                            
                             <div className="content-col">
                                 <p className="comments" > Comments</p>
-                                <Row className="comment-row">
-                                    <Col>
+                                <Row ></Row>
+                                    <Col className="comment-row">
                                        
                                         <p className="comment-book-name" >Ready Player Two</p>
-                                        <p className="profile-comment-rating" >Rating: 2.3</p>                                    
+                                        <p className="profile-comment-rating" >Rating: 2</p>                                    
                                         <p className="profile-comments" >
                                             This was easily my biggest disappointment for the year. I truly enjoyed "Ready Player One" but I didn't like this one.
                                         </p>
                                     </Col>
-                                    
-                                </Row>
+                                
                                 
                             </div>
                             

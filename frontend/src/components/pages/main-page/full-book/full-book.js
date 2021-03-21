@@ -85,6 +85,8 @@ class FullBook extends Component {
         comments: [],
         submitting: false,
         value: '',
+        rateCurrent: null,
+        rateTotal: 4.3,
     };
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
@@ -136,6 +138,14 @@ class FullBook extends Component {
             value: e.target.value,
         });
     };
+
+    handleChangeRate = rateCurrent => {
+        this.setState({
+            rateCurrent,
+        });
+        
+    };
+    
     componentDidMount() {
         console.log(this.props);
         if (this.props.match.params.isbn) {
@@ -193,13 +203,27 @@ class FullBook extends Component {
                             }}
                         >
                             {book}
-                            <Row>
+                            
+                            <Row  >
+                                <Row className="rating-content-rate">
+                                    <p className="rate-header-rate-header" justify="center">Rate: </p>
+                                    <p className="rate-header-rate">{this.state.rateTotal}</p>
+                                </Row>
+                                <Row className="rating-content-rate">
+                                    <p className="rate-header-rate-header" justify="center">Your rate: </p>
+                                    <p className="rate-header-rate">{this.state.rateCurrent}</p>
+                                </Row>
                                 <div className="rating-content">
-                                    <p>Rate this book :</p>
-                                    <Rate />
+                                    <p className="rate-header">Rate this book :</p>
+                                    <Rate 
+                                        
+                                        onChange={this.handleChangeRate}
+                                    />
                                 </div>
                                 
-                                <input type="button" className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={this.onClick}></input> 
+                                <input type="button" className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={this.onClick}></input>
+                                
+                                
                             </Row>
                             <div>
                                 <List
