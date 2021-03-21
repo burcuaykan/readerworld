@@ -9,14 +9,14 @@ class Books extends Component {
         books: []
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/api/books/random`,
+        axios.get(`http://localhost:8080/api/books/all`,
             {
                 withCredentials: true
             })
             .then(res => {
                  console.log(res.data);
                 // const data = res.data.slice(0, 4);
-                const books = res.data.slice(2, 10);
+                const books = res.data.slice(6, 14);
                 // const books = data
                 // const books = data.map(book =>
                 //     <div key={book.isbn}>
