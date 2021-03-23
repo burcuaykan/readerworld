@@ -6,13 +6,9 @@ import NavBarComp from '../../navigation-bar/navigation-bar.js'
 import { Row, Col } from 'react-bootstrap';
 import { Input } from 'antd';
 import axios from 'axios';
-import BooksPage from '../main-page/books/books.js'
 import { NavLink } from "react-router-dom";
 
 import {Button } from 'antd';
-
-import Khaleesi from '../../../images/khaleesi.png';
-
 
 
 const { Search } = Input;
@@ -25,7 +21,8 @@ export default class ProfileContent extends Component {
     state = {
         loadedPostUser: null,
         loadedPostReadList: [],
-        notfound: ""
+        notfound: "",
+        comments: []
     };
     
 
@@ -39,7 +36,6 @@ export default class ProfileContent extends Component {
         .then(response => {
             
             console.log(response.data);
-                // const data = res.data.slice(0, 4);
                 const readlist = response.data.map(readlist =>
                      <div key={readlist.isbn}>
                           {/* <img src={} alt="" /> */}
@@ -49,6 +45,33 @@ export default class ProfileContent extends Component {
                 // )
                 this.setState({
                     loadedPostReadList: readlist,
+                    error: null
+                });
+            
+        })
+        .catch(err => {
+            this.setState({
+                error: err
+            });
+        });
+
+        axios.get(`http://localhost:8080/api/books/comment/`,
+        {
+            withCredentials: true
+        })
+        .then(response => {
+            
+            console.log(response.data);
+                const comments = response.data.map(comment =>
+                     <div className="comment-container" key={comment.isbn}>
+                        <p> <p className="comment-body"> Book isbn :</p> {comment.isbn}</p>
+                         <p><p className="comment-body"> Comment :</p> {comment.commentBody}</p>
+                      
+
+                     </div>);
+                // )
+                this.setState({
+                    comments: comments,
                     error: null
                 });
             
@@ -84,10 +107,6 @@ export default class ProfileContent extends Component {
             
     }
     render() {
-        //const imgsrc = Khaleesi;
-        //const name = "Daenerys Targaryen";
-        //const username = "@khaleesi";
-        //const bio = "I love reading books and comment about them as I read. “When you play the game of thrones, you win or you die. There is no middle ground.” — George R. R. Martin";
         
         let user = <p style={{ textAlign: 'center' }}></p>;
         if (this.state.loadedPostUser) {
@@ -120,6 +139,15 @@ export default class ProfileContent extends Component {
                     <p className="book-names">{this.state.notfound}</p>
                 </div>
             )
+        }
+        let comment = <p style={{ textAlign: 'center' }}></p>;
+        if (this.state.comments) {
+            comment = (
+                <div>
+                    <p >{this.state.comments}</p>
+                </div>
+
+            );
         }
         return (
             <Layout style={{ height: "1024px" }}>
@@ -165,7 +193,7 @@ export default class ProfileContent extends Component {
                                     
                                     <p className="lists" > Lists</p>
                                     <Col className="mini-list-col">
-                                        <p className="mini-lists" > Finished</p>
+                                        <p className="mini-lists" > Read list</p>
                                         <p className="book-names" > {readlist} </p>
                                         <NavLink to="/main-page" exact> <Button className="add-book-button"> Add new book </Button></NavLink>
                                     
@@ -177,12 +205,9 @@ export default class ProfileContent extends Component {
                             <div className="content-col">
                                 <p className="comments" > Comments</p>
                                 <Row ></Row>
-                                    <Col className="comment-row">
-                                       
-                                        <p className="comment-book-name" >Ready Player Two</p>
-                                        <p className="profile-comment-rating" >Rating: 2</p>                                    
+                                    <Col className="comment-row">                                  
                                         <p className="profile-comments" >
-                                            This was easily my biggest disappointment for the year. I truly enjoyed "Ready Player One" but I didn't like this one.
+                                            {comment}
                                         </p>
                                     </Col>
                                 
