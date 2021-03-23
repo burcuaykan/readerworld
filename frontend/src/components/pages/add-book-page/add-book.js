@@ -23,7 +23,7 @@ export default class AddBook extends Component {
                         <img src={MainLogo} alt="" style={{ width: "40%" }} />
                     </div>
                     <div className="search-bar">
-                        <Search className="search-bar-input" placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
+                        <Search className="search-bar-input" placeholder="Search..." onSearch={onSearch} style={{ width: 200 }} />
                     </div>
                 </Header>
                 <Layout>
@@ -42,7 +42,7 @@ export default class AddBook extends Component {
                                             <Form.Item label="Book Name" rules={[{ type: 'email' }]}>
                                                 <Input />
                                             </Form.Item>
-                                            <Form.Item label="isbn" rules={[{ type: 'number', min: 0, max: 99 }]}>
+                                            <Form.Item label="ISBN" rules={[{ type: 'number', min: 0, max: 99 }]}>
                                                 <Input />
                                             </Form.Item>
                                             <Form.Item label="Page Number">

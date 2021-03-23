@@ -5,7 +5,7 @@ import './book.css';
 const book = (props) => (
     <article className="book" onClick={props.clicked}>
         <img src={"http://covers.openlibrary.org/b/isbn/" + props.isbn + "-L.jpg?default=false"} alt="" style={{ width: "60%" }} id="imageBox"/>
-        <h1>{props.bookname}</h1>
+        <p className="book-name">{props.bookname}</p>
         <div className="Info">
             <div className="Author">{props.author}</div>
         </div>

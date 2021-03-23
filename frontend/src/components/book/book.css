@@ -2,19 +2,30 @@
     width: 250px;
     padding: 16px;
     text-align: center;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
+    
     margin: 10px;
     box-sizing: border-box;
     cursor: pointer;
+    font-size: large;
+    
 }
 
 .book:hover,
 .book:active {
-    background-color: #ec7b3b42;
+    background-color: #fc7b3b42;
+    font-size: larger;
 }
 
 .Author {
-    margin: 16px 0;
+    font-size: 12px;
+    margin: 0cm;
+    padding: 0cm;
     color: #421702;
+}
+.book-name {
+    padding-top: 10px;
+    padding-bottom: 0cm;
+    margin-bottom: 0cm;
+    color: #421702;
+    font-size: 18px;
 }

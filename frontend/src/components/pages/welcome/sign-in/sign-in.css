@@ -50,28 +50,35 @@
 }
 
 .ant-btn-primary {
-    background: #FFF5EF!important;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)!important;
+    background: #FD823C!important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25)!important;
     border-radius: 113px!important;
-    border-color: #FFF5EF!important;
-    color: black!important;
+    border-color: #FD823C!important;
+    color: white!important;
     font-weight: bold!important;
     font-size: 15px!important;
 }
+
+.ant-btn-primary:hover{
+    background-color: #ffffff; 
+    border-color: #ffffff;/* Green */
+    color: #FD823C
+}
 .ant-tabs-tab-btn:hover{
     color: #FD823C!important;
+    background: #ffffff;
 }
 .ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
-    color: #FFF5EF!important;
+    color: #ffffff!important;
+    background: #FD823C;
 }
-.ant-input{
+.username-input{
     background: #FFFAF8!important;
-    border-radius: 20px!important;
-    line-height: 2!important;
+    border-radius: 2px!important;
 }
 .ant-input-affix-wrapper {
     background: #FFFAF8!important;
-    border-radius: 20px!important; 
+    border-radius: 2px!important; 
 }
 .ant-tabs-ink-bar {
     background: #FD823C!important;

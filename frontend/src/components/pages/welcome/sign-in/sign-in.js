@@ -156,6 +156,7 @@ export default class SignIn extends Component {
                                         onFinishFailed={this.onFinishFailed}
                                     >
                                         <Form.Item
+                                            
                                             label="Username"
                                             name="username"
                                             rules={[
@@ -166,7 +167,7 @@ export default class SignIn extends Component {
                                             ]}
                                         >
 
-                                            <Input
+                                            <Input className="username-input"
                                                 value={this.state.username} onChange={this.onChangeUserName}></Input>
                                         </Form.Item>
                                         <Form.Item
@@ -209,7 +210,7 @@ export default class SignIn extends Component {
                                                 },
                                             ]}
                                         >
-                                            <Input value={this.state.username} onChange={this.onChangeUserName}></Input>
+                                            <Input className="username-input" value={this.state.username} onChange={this.onChangeUserName}></Input>
                                         </Form.Item>
                                         <Form.Item
                                             label="Password"

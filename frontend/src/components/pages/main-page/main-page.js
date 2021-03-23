@@ -29,7 +29,7 @@ export default class MainPage extends Component {
                         <img src={MainLogo} alt="" style={{ width: "40%" }} />
                     </div>
                     <div className="search-bar">
-                        <Search className="search-bar-input" placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
+                        <Search className="search-bar-input" placeholder="Search..." onSearch={onSearch} style={{ width: 200 }} />
                     </div>
                 </Header>
                 <Layout>

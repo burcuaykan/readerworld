@@ -128,7 +128,7 @@ export default class ProfileContent extends Component {
                     <img src={MainLogo} alt="" style={{ width: "40%" }} />
                 </div>
                 <div className="search-bar">
-                    <Search className="search-bar-input" placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
+                    <Search className="search-bar-input" placeholder="Search..." onSearch={onSearch} style={{ width: 200 }} />
                 </div>
             </Header>
             <Layout>
@@ -163,9 +163,8 @@ export default class ProfileContent extends Component {
                             <div>
                                 <Col className="list-col">
                                     
-                                    <p className="lists" > Lists</p>
+                                    <p className="lists" > Readlist</p>
                                     <Col className="mini-list-col">
-                                        <p className="mini-lists" > Finished</p>
                                         <p className="book-names" > {readlist} </p>
                                         <NavLink to="/main-page" exact> <Button className="add-book-button"> Add new book </Button></NavLink>
                                     

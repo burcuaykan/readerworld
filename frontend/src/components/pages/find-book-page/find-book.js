@@ -75,7 +75,7 @@ export default class FindBook extends Component {
                     <Layout style={{ padding: '24px 24px 24px' }}>
                         <Content style={{textAlign: "center"}}>
                             <h1 style={{fontSize: "large"}}> Find Book with isbn!</h1>
-                            <Search placeholder="type isbn" onSearch={this.onSearch} enterButton className="search-input" />
+                            <Search placeholder="type ISBN" onSearch={this.onSearch}  className="search-input" />
                             {book}
                         </Content>
                     </Layout>

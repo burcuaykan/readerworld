@@ -13,12 +13,11 @@
   
 .ant-layout-header {
     background: #202124!important;
+    padding-left: 20px!important;
 }
 
 
-.search-bar-input{
-    background: #202124!important;
-}
+
 
 .ant-input-group-addon {
     background: #202124!important;
@@ -29,4 +28,8 @@
 .ant-layout{
     background: #f0f2f5;
     min-height: auto;
+}
+.search-input{
+    width: auto;
+    margin-top: 1rem;
 }
