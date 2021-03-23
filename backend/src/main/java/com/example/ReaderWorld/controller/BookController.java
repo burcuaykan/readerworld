@@ -2,6 +2,7 @@ package com.example.ReaderWorld.controller;
 
 import com.example.ReaderWorld.model.BookDTO;
 import com.example.ReaderWorld.model.CommentDTO;
+import com.example.ReaderWorld.model.VoteDTO;
 import com.example.ReaderWorld.model.LikeDTO;
 import com.example.ReaderWorld.model.ReadListDTO;
 import com.example.ReaderWorld.service.BookService;
@@ -113,6 +114,17 @@ public class BookController {
         }
     }
 
+    @GetMapping("/vote")
+    @ResponseBody
+    public ResponseEntity<?> getVotesISBN(@RequestParam(name="isbn", required = false) String ISBN) throws ExecutionException, InterruptedException {
+        if(ISBN != null){
+            return ResponseEntity.ok(bookService.getVotesISBN(ISBN));
+        }
+        else{
+            return ResponseEntity.ok(bookService.getVotesUser());
+        }
+    }
+
     @GetMapping("/readlist")
     @ResponseBody
     public ResponseEntity<?> getReadList() throws ExecutionException, InterruptedException {
@@ -129,6 +141,12 @@ public class BookController {
     @ResponseBody
     public ResponseEntity<?> addComment(@RequestBody CommentDTO commentDTO) throws ExecutionException, InterruptedException {
         return ResponseEntity.ok(bookService.saveComment(commentDTO));
+    }
+
+    @PostMapping("/vote")
+    @ResponseBody
+    public ResponseEntity<?> addVote(@RequestBody VoteDTO voteDTO) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(bookService.saveVote(voteDTO));
     }
 
     @PostMapping("/like")
