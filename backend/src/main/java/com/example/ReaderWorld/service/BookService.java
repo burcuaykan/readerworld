@@ -1,9 +1,6 @@
 package com.example.ReaderWorld.service;
 
-import com.example.ReaderWorld.model.BookDTO;
-import com.example.ReaderWorld.model.CommentDTO;
-import com.example.ReaderWorld.model.LikeDTO;
-import com.example.ReaderWorld.model.ReadListDTO;
+import com.example.ReaderWorld.model.*;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -129,6 +126,41 @@ public class BookService{
 
         dbFirestore.collection("CommentBooks").add(commentDTO);
         return true;
+    }
+
+    public List<VoteDTO> getVotesISBN(String ISBN) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        Query query = dbFirestore.collection("VoteBooks").whereEqualTo("isbn", ISBN);
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(VoteDTO.class);
+    }
+
+    public List<VoteDTO> getVotesUser() throws  ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Query query = dbFirestore.collection("VoteBooks").whereEqualTo("voter", auth.getName());
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(VoteDTO.class);
+    }
+
+    public boolean saveVote(VoteDTO voteDTO) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        voteDTO.setVoter(auth.getName());
+
+        Query query = dbFirestore.collection("VoteBooks").whereEqualTo("voter", auth.getName()).whereEqualTo("isbn", voteDTO.getISBN());
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+
+        if (queryDocumentSnapshots.isEmpty()) {
+            dbFirestore.collection("VoteBooks").add(voteDTO);
+            return true;
+        }
+        //else{}
+        return false;
     }
 
     public boolean addLike(LikeDTO likeDTO){
