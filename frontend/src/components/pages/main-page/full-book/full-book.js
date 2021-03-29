@@ -290,7 +290,7 @@ class FullBook extends Component {
                                         <div className="rating-content">
                                             <p className="rate-header">Rate this book :</p>
                                             <Rate 
-                                                Value={usersRating}
+                                                value={usersRating}
                                                 onChange={this.handleSubmitRate}
                                             />
                                         </div>
