@@ -22,12 +22,35 @@ export default class ProfileContent extends Component {
         loadedPostUser: null,
         loadedPostReadList: [],
         notfound: "",
-        comments: []
+        comments: [],
+        rates: []
     };
     
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.props);
+
+        await axios.get(`http://localhost:8080/api/users/`,
+        {
+            withCredentials: true
+        })
+        .then(response => {
+            console.log(response);
+            if(response.data){
+                this.setState({ loadedPostUser: response.data });
+            }
+            else{
+                this.setState({ notfound: "User is not found :(" });
+            }
+            
+            
+        })
+        .catch(err => {
+            this.setState({
+                error: err
+            });
+        });
+        
         
         axios.get(`http://localhost:8080/api/books/readlist/`,
         {
@@ -82,27 +105,46 @@ export default class ProfileContent extends Component {
             });
         });
 
-        axios.get(`http://localhost:8080/api/users/`,
-        {
-            withCredentials: true
-        })
-        .then(response => {
-            console.log(response);
-            if(response.data){
-                this.setState({ loadedPostUser: response.data });
-            }
-            else{
-                this.setState({ notfound: "User is not found :(" });
-            }
+        
+        if(this.state.loadedPostUser){
             
-            
-        })
-        .catch(err => {
-            this.setState({
-                error: err
+            axios.get('http://localhost:8080/api/books/vote?voter=' + "brc@user.com",
+            {
+                withCredentials: true
+            })
+            .then(response => {
+                
+                console.log(response.data);
+                    const rates = response.data.map(rate =>
+                        <div className="comment-container" key={rate.isbn}>
+                            <p> <p className="comment-body"> Book isbn :</p> {rate.isbn}</p>
+                            <p><p className="comment-body"> Rate :</p> {rate.vote}</p>
+                        
+                        </div>);
+                    // )
+                    this.setState({
+                        rates: rates,
+                        error: null
+                    });
+                
+            })
+            .catch(err => {
+                this.setState({
+                    error: err
+                });
             });
-        });
-
+        }
+        else{
+           const rates = <div className="comment-container" >
+           <p> <p className="comment-body"> Book isbn :</p> 1111111</p>
+           <p><p className="comment-body"> rate :</p> 10</p>
+       
+       </div>
+            this.setState({
+                rates: rates,
+                error: null
+            });
+        }   
         
             
     }
@@ -149,6 +191,15 @@ export default class ProfileContent extends Component {
 
             );
         }
+        let rate = <p style={{ textAlign: 'center' }}></p>;
+        if (this.state.rates) {
+            rate = (
+                <div>
+                    <p >{this.state.rates}</p>
+                </div>
+
+            );
+        }
         return (
             <Layout style={{ height: "1024px" }}>
             <Header className="header">
@@ -174,14 +225,8 @@ export default class ProfileContent extends Component {
                         }}
                     >
                         <Row className="bio-row">
-                                {/*<img src={imgsrc} alt="" className="footer-image" style={{ height:"10%", width: "10%", paddinTop:"26px", paddingBottom: "0px", marginRight: "10px", marginTop: "10px" }}/>*/}
                             <Col>
                                 <p className="user-name" > {user}</p>
-                                {/*<p className="username" > {username}</p>*/}
-
-                                {/*<p style={{fontSize:"12px", paddingTop:"0px", margin:"0" }} > burcuaykan13@gmail.com</p>*/}
-                                {/*<p className="bio"> {bio} </p>*/}
-
                             </Col>
 
                         </Row>
@@ -203,12 +248,24 @@ export default class ProfileContent extends Component {
                            
                             <div className="content-col">
                                 <p className="comments" > Comments</p>
-                                <Row ></Row>
-                                    <Col className="comment-row">                                  
+                               
+                                                                      
                                         <p className="profile-comments" >
                                             {comment}
                                         </p>
-                                    </Col>
+                                    
+                                
+                                
+                            </div>
+                            <div className="content-col">
+                                <p className="comments" > Rate</p>
+                                
+                                                                     
+                                        
+                                        <p className="profile-comments" >
+                                            {rate}
+                                        </p>
+                                  
                                 
                                 
                             </div>
