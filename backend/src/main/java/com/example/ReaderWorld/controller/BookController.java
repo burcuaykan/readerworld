@@ -116,9 +116,14 @@ public class BookController {
 
     @GetMapping("/vote")
     @ResponseBody
-    public ResponseEntity<?> getVotesISBN(@RequestParam(name="isbn", required = false) String ISBN) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> getVotesISBN(@RequestParam(name="isbn", required = false) String ISBN, @RequestParam(name="voter", required = false) Boolean Voter) throws ExecutionException, InterruptedException {
         if(ISBN != null){
-            return ResponseEntity.ok(bookService.getVotesISBN(ISBN));
+            if(!Voter){
+                return ResponseEntity.ok(bookService.getVotesISBN(ISBN));
+            }
+            else{
+                return ResponseEntity.ok(bookService.getVotesUserISBN(ISBN));
+            }
         }
         else{
             return ResponseEntity.ok(bookService.getVotesUser());

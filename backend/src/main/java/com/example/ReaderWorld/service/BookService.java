@@ -147,6 +147,16 @@ public class BookService{
         return queryDocumentSnapshots.toObjects(VoteDTO.class);
     }
 
+    public  List<VoteDTO> getVotesUserISBN(String ISBN) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Query query = dbFirestore.collection("VoteBooks").whereEqualTo("voter", auth.getName()).whereEqualTo("isbn", ISBN);
+
+        QuerySnapshot queryDocumentSnapshots = query.get().get();
+        return queryDocumentSnapshots.toObjects(VoteDTO.class);
+    }
+
     public boolean saveVote(VoteDTO voteDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -162,6 +172,7 @@ public class BookService{
         //else{}
         return false;
     }
+
 
     public boolean addLike(LikeDTO likeDTO){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
