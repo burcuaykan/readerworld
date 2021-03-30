@@ -9,7 +9,7 @@ import { animateScroll as scroll } from 'react-scroll';
 class Books extends Component {
     state = {
         books: [],
-        pageSize: 10,
+        pageSize: 20,
         page: 1
     }
 
