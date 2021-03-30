@@ -13,6 +13,8 @@ import { Rate } from 'antd';
 import { Comment, Form, Button, List } from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import Rates from '../../../rate/rate';
+import { DatePicker, Space } from 'antd';
+
 
 
 const { Search } = Input;
@@ -44,6 +46,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 
+
 const onSearch = value => console.log(value);
 
 class FullBook extends Component {
@@ -58,12 +61,14 @@ class FullBook extends Component {
         done: true,
         buttonLabel: "Add to readlist",
         loadedUser: null,
+        deadline: null
 
     };
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
             {
                 isbn: this.state.loadedPost.isbn,
+                deadline: this.state.deadline
             },
             {
 
@@ -77,6 +82,12 @@ class FullBook extends Component {
         document.getElementById("add-to-readlist").value = "Added to readlist";
         document.getElementById("add-to-readlist").disabled = true;
     }
+
+    onChangeDate = (date, dateString) => {
+        this.setState({
+            deadline: date
+        })
+      }
 
     changeText = (buttonLabel) => {
         this.setState({ buttonLabel }); 
@@ -204,14 +215,8 @@ class FullBook extends Component {
                     });
                 });
             }
-        }
-
-        
-
-
-    }
-    
-   
+        } 
+    }   
 
     render() {
         const { comments, submitting, value, buttonLabel, } = this.state;
@@ -294,7 +299,19 @@ class FullBook extends Component {
                                                 onChange={this.handleSubmitRate}
                                             />
                                         </div>
-                                        <Button className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={ () => {this.onClick(); this.changeText("Added to readlist")}}>{buttonLabel}</Button>
+                                        
+                                        <div className="rating-content">
+                                            <p className="rate-header">Select a deadline and add to readlist:</p>
+                                            <Space direction="vertical">
+                                                <DatePicker onChange={this.onChangeDate} />
+                                            </Space>,
+                                            <Button className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={ () => {
+                                                this.onClick(); this.changeText("Added to readlist")}
+                                                }>
+                                                    {buttonLabel}
+                                            </Button>
+                                        </div>
+                                        
 
                                     </Row>
 
