@@ -59,10 +59,13 @@ export default class ProfileContent extends Component {
         .then(response => {
             
             console.log(response.data);
+            
                 const readlist = response.data.map(readlist =>
-                     <div key={readlist.isbn}>
-                          {/* <img src={} alt="" /> */}
-                         <p>- {readlist.bookInformation.bookname}</p>
+                    
+                     <div className="readlist-container" key={readlist.isbn}>
+                          
+                         <p><p className="comment-body">Book:</p>{readlist.bookInformation.bookname}</p>
+                         <p><p className="comment-body">Deadline:</p>{readlist.deadline.date}</p>
 
                      </div>);
                 // )
@@ -108,7 +111,7 @@ export default class ProfileContent extends Component {
         
         if(this.state.loadedPostUser){
             
-            axios.get('http://localhost:8080/api/books/vote?voter=' + "brc@user.com",
+            axios.get('http://localhost:8080/api/books/vote?voter=' + this.state.loadedPostUser.email,
             {
                 withCredentials: true
             })
@@ -231,43 +234,31 @@ export default class ProfileContent extends Component {
 
                         </Row>
                         <Row>
-                        <div className="container-grid">
-                            
+                        <div className="container-grid">                            
                             <div>
                                 <Col className="list-col">
-                                    
                                     <p className="lists" > Readlist</p>
-                                    <Col className="mini-list-col">
-                                        <p className="book-names" > {readlist} </p>
-                                        <NavLink to="/main-page" exact> <Button className="add-book-button"> Add new book </Button></NavLink>
-                                    
-                                    </Col>
-                                    
+                                    <p className="book-names" > {readlist} </p>
+                                    <NavLink to="/main-page" exact> 
+                                        <Button className="add-book-button"> 
+                                            Add new book
+                                        </Button>
+                                    </NavLink>
                                 </Col>
                             </div>
                            
                             <div className="content-col">
-                                <p className="comments" > Comments</p>
-                               
-                                                                      
-                                        <p className="profile-comments" >
-                                            {comment}
-                                        </p>
-                                    
-                                
-                                
+                                <p className="comments" > Comments</p>                              
+                                <p className="profile-comments" >
+                                    {comment}
+                                </p>
                             </div>
+
                             <div className="content-col">
-                                <p className="comments" > Rate</p>
-                                
-                                                                     
-                                        
-                                        <p className="profile-comments" >
-                                            {rate}
-                                        </p>
-                                  
-                                
-                                
+                                <p className="comments" > Rate</p> 
+                                <p className="profile-comments" >
+                                    {rate}
+                                </p>   
                             </div>
                             
                         </div>
