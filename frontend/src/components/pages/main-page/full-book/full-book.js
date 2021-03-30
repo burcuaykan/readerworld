@@ -12,6 +12,8 @@ import { Rate } from 'antd';
 // import Burcu from '../../../../images/footer-images/burcu.png';
 import { Comment, Form, Button, List } from 'antd';
 import { Row, Col } from 'react-bootstrap';
+import Rates from '../../../rate/rate';
+
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -51,8 +53,12 @@ class FullBook extends Component {
         submitting: false,
         value: '',
         rateCurrent: null,
-        rateTotal: 4.3,
-        buttonLabel: "Add to readlist"
+        rateTotal: null,
+        votes: [],
+        done: true,
+        buttonLabel: "Add to readlist",
+        loadedUser: null,
+
     };
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
@@ -73,7 +79,6 @@ class FullBook extends Component {
     }
 
     changeText = (buttonLabel) => {
-
         this.setState({ buttonLabel }); 
       } 
 
@@ -121,11 +126,19 @@ class FullBook extends Component {
         });
     };
 
-    handleChangeRate = rateCurrent => {
+    handleSubmitRate = (rateCurrent) => {
         this.setState({
             rateCurrent,
         });
-        
+        axios.post('http://localhost:8080/api/books/vote',
+            {
+                isbn: this.state.loadedPost.isbn,
+                vote: rateCurrent
+            },
+            {
+                withCredentials: true
+            });
+         
     };
     
     componentDidMount() {
@@ -150,6 +163,17 @@ class FullBook extends Component {
                         this.setState({ comments: response.data });
                         console.log(this.state.comments)
                     });
+                
+                axios.get('http://localhost:8080/api/books/vote?isbn=' + this.props.match.params.isbn,
+                {
+                    withCredentials: true
+                })
+                .then(response => {
+                    //console.log(response);
+                    this.setState({ votes: response.data });
+                    console.log(this.state.votes)
+                });   
+                
                 // axios.all([
                 //     axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn),
                 //     axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn)
@@ -161,12 +185,36 @@ class FullBook extends Component {
                 //         this.setState({ loadedPost: data1.data });
                 //         this.setState({ comments: data2.data });
                 //     }));
+                axios.get(`http://localhost:8080/api/users/`,
+                {
+                    withCredentials: true
+                })
+                .then(response => {
+                    console.log(response);
+                    if(response.data){
+                        this.setState({ loadedUser: response.data });
+                    }
+                    else{
+                        this.setState({ notfound: "User is not found :(" });
+                    }
+                })
+                .catch(err => {
+                    this.setState({
+                        error: err
+                    });
+                });
             }
         }
+
+        
+
+
     }
+    
+   
 
     render() {
-        const { comments, submitting, value, buttonLabel } = this.state;
+        const { comments, submitting, value, buttonLabel, } = this.state;
         let book = <p style={{ textAlign: 'center' }}></p>;
         if (this.props.isbn) {
             book = <p style={{ textAlign: 'center' }}>Loading...!</p>;
@@ -183,7 +231,29 @@ class FullBook extends Component {
 
             );
         }
+        
+        let rateTotaldummy = 0.0;
+        let ratedummy = <p>{rateTotaldummy}</p>;
+        if (this.state.votes.length!=0) {
+            this.state.votes.forEach((vote) => {
+                rateTotaldummy = rateTotaldummy + vote.vote;
+              })
+            
+              rateTotaldummy = rateTotaldummy / this.state.votes.length;
+            
+            ratedummy = <p>{rateTotaldummy}</p>;
+        }
+        let usersRating = 0;
+        if(this.state.votes.length!=0 && this.state.loadedUser){
+            this.state.votes.forEach((vote) => {
+                if(vote.voter==this.state.loadedUser.email){
+                    usersRating = vote.vote;
+                }
+              })
+        }
+        
         return (
+           
             <Layout style={{ height: "1024px" }}>
                 <Header className="header">
                     <div className="logo" style={{ float: "left" }}>
@@ -207,26 +277,21 @@ class FullBook extends Component {
                             }}
                         >
                            
-                               
                                     <div>
                                         {book}
                                     </div>
                                     
-
                                     <Row>
                                         <Row className="rating-content-rate">
                                             <p className="rate-header-rate-header" justify="center">Rate: </p>
-                                            <p className="rate-header-rate">{this.state.rateTotal}</p>
+                                            <p className="rate-header-rate">{ratedummy}</p>
                                         </Row>
-                                        <Row className="rating-content-rate">
-                                            <p className="rate-header-rate-header" justify="center">Your rate: </p>
-                                            <p className="rate-header-rate">{this.state.rateCurrent}</p>
-                                        </Row>
+                                        
                                         <div className="rating-content">
                                             <p className="rate-header">Rate this book :</p>
                                             <Rate 
-                                                
-                                                onChange={this.handleChangeRate}
+                                                value={usersRating}
+                                                onChange={this.handleSubmitRate}
                                             />
                                         </div>
                                         <Button className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={ () => {this.onClick(); this.changeText("Added to readlist")}}>{buttonLabel}</Button>

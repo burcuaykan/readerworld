@@ -49,6 +49,7 @@
 .bio-row{
     background-color: #ffffff;
     padding:0.5cm;
+    margin:0.1cm;
     border-radius: 5px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 }
@@ -61,17 +62,17 @@
 
 .list-col{
     /*background-color: #ffffff;*/
-    padding:0.5cm 0cm 0cm 0cm;
+    padding:0.5cm 0.5cm 0cm 0.5cm;
     /*margin-top: 0.5cm;*/
     margin-left: 0cm;
-    margin-right: 0.2cm;
+    
     border-radius: 5px;
     /*box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);*/
 }
 .mini-list-col{
     background-color: #303031;
     padding:14px 0.3cm 0.5cm 0.3cm;
-    margin-top: 3px;
+    margin-top: 1rem;
     margin-bottom: 0.25cm;
     margin-left: 0cm;
     border-radius: 5px;
@@ -80,13 +81,12 @@
 .content-col{
     
     padding:0.5cm;
-    margin-right: 10px;
     border-radius: 5px;
    
 }
 .container-grid {
     display: grid;
-    grid-template-columns: 7cm 20.6cm; /*columns widths*/
+    grid-template-columns: 300px 600px 300px; /*columns widths*/
     height: max-content;
   }
 .comment-book-name{
@@ -109,10 +109,8 @@
 .profile-comments{
     font-size: 14px;
     font-weight: 400;
-    margin:3px;
     padding-top: 1px;
     padding-bottom: 14px;
-    padding-left: 2px;
     color: #000000;
 }
 .add-book-button{
@@ -133,10 +131,14 @@
 }
 .comment-container{
     border-radius: 5px;
-    box-shadow: 0px 2px 10px rgb(0 0 0 / 25%);
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 15%);
     margin-top: 1rem;
+    padding: 10px;
+    background-color: #ffffff;
 }
 .comment-body{
+    padding: 20px 20px 0px 0px;
+    margin-top:1rem;
     display: inline;
     font-weight: bold;
     color: #FD823C;

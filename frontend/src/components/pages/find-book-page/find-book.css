@@ -24,4 +24,26 @@
 .add-book-link:hover, .add-book-link:active {
     background-color:  #FD823C;
     color: white;
-  }
+}
+.found-books{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: auto;   
+}
+.book-content{
+    color: black;
+    width: auto;
+    border: 1px solid #eee;
+    text-align: center;
+    margin: 2rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: large;
+
+}
+
+.book-content:hover,
+.book-content:active {
+    background-color: #fc7b3b42;
+}

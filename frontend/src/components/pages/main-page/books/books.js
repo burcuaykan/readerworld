@@ -14,18 +14,8 @@ class Books extends Component {
                 withCredentials: true
             })
             .then(res => {
-                 console.log(res.data);
-                // const data = res.data.slice(0, 4);
-                const books = res.data.slice(6, 14);
-                // const books = data
-                // const books = data.map(book =>
-                //     <div key={book.isbn}>
-                //          {/* <img src={} alt="" /> */}
-                //         <p>{book.author}</p>
-                //         <p>{book.bookname}</p>
-
-                //     </div>
-                // )
+                const books = res.data.slice(6, 16);
+         
                 this.setState({
                     books: books,
                     error: null
