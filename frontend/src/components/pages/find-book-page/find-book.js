@@ -66,20 +66,34 @@ export default class FindBook extends Component {
             });
 
     }
+    onSearchAuthor = value => {
+        axios.get(`http://localhost:8080/api/books/filter/?author=` + value,
+            {
+                withCredentials: true
+            })
+            .then(response => {
+                console.log(response);
+                if (response.data) {
+                    this.setState({ loadedPost: response.data });
+                }
+                else {
+                    this.setState({ notfound: "Book is not found :(", addbook: "If you want, you can add this book to ReaderWorld!" });
+                    document.getElementById("add-book").style.display = "inline-block";
+                }
+
+
+            })
+            .catch(err => {
+                this.setState({
+                    error: err
+                });
+            });
+
+    }
     bookSelectHandler = (isbn) => {
         this.setState({ selectedPostIsbn: isbn });
     }
     render() {
-        // books = this.state.books.map((book, i) => {
-        //     return (
-        //         <Link to={'/' + book.isbn} key={i}>
-        //             <Book
-        //                 key={i}
-        //                 isbn={book.isbn}
-        //                 bookname={book.bookname}
-        //                 author={book.author}
-        //                 clicked={() => this.bookSelectHandler(book.isbn)} />
-        //         </Link>
         let book = <p style={{ textAlign: 'center' }}></p>;
         if (this.state.loadedPost) {
             book = this.state.loadedPost.map((book, i) => {
@@ -117,13 +131,17 @@ export default class FindBook extends Component {
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>
                         <Row style={{ textAlign: "center" }}>
-                            <Col span={12}>
+                            <Col span={8}>
                                 <h1 style={{ fontSize: "large" }}> Find Book with isbn!</h1>
                                 <Search placeholder="type ISBN" onSearch={this.onSearch} className="search-input" />
                             </Col>
-                            <Col span={12}>
+                            <Col span={8}>
                                 <h1 style={{ fontSize: "large" }}> Find Book with name!</h1>
                                 <Search placeholder="type name" onSearch={this.onSearchName} className="search-input" />
+                            </Col>
+                            <Col span={8}>
+                                <h1 style={{ fontSize: "large" }}> Find Book with author!</h1>
+                                <Search placeholder="type name" onSearch={this.onSearchAuthor} className="search-input" />
                             </Col>
                         </Row>
                         <div className="found-books">
