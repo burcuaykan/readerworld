@@ -26,6 +26,8 @@ export default class NavBarComp extends React.Component {
                     to="/main-page" exact> Books </NavLink></Menu.Item>
                 <Menu.Item selected className="menu-item" key="3" icon={<img src={Scan} alt="" style={{ width: "11%", paddingBottom: "6px", marginRight: "15px" }} />}><NavLink
                     to="/find-book" exact>Find Books</NavLink></Menu.Item>
+                <Menu.Item selected className="menu-item" key="3" icon={<img src={Scan} alt="" style={{ width: "11%", paddingBottom: "6px", marginRight: "15px" }} />}><NavLink
+                    to="/upload-image" exact>Upload Image</NavLink></Menu.Item>
                 <Menu.Item selected className="menu-item" key="4" icon={<img src={Profile} alt="" style={{ width: "13%", paddingBottom: "6px", marginRight: "13px" }} />}><NavLink
                     to="/profile-page" exact>Profile</NavLink></Menu.Item>
                 <Menu.Item selected className="menu-item" key="5" icon={<SettingFilled style={{ fontSize: "20px", paddingBottom: "6px", marginRight: "14px" }} />}><NavLink

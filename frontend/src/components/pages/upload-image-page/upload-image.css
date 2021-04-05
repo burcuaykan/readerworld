@@ -1,0 +1,53 @@
+.search-input{
+    width: auto;
+    margin-top: 1rem;
+}
+.ant-input-group-addon {
+    background: transparent!important;
+}
+.not-found-content{
+    text-align: center;
+    align-items: center;
+}
+.not-found-title{
+    color: #df6118;
+    font-size: large;
+}
+.add-book-link{
+    background-color: white;
+    color: black;
+    border: 2px solid #FD823C;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+}  
+.add-book-link:hover, .add-book-link:active {
+    background-color:  #FD823C;
+    color: white;
+}
+.found-books{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: auto;   
+}
+.book-content{
+    color: black;
+    width: auto;
+    border: 1px solid #eee;
+    text-align: center;
+    margin: 2rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: large;
+
+}
+
+.book-content:hover,
+.book-content:active {
+    background-color: #fc7b3b42;
+}
+.upload-image-title{
+    color: #df6118;
+    font-size: 2rem;
+}
