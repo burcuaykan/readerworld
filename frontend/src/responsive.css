@@ -1,0 +1,19 @@
+@media only screen and (min-width: 768px) {
+    .container-grid{
+        margin: auto;
+        display: flex;
+        height: max-content;
+    }
+    .container-grid .content-col {
+        padding-left: 5vw;
+    }
+    .comment-container{
+        padding: 1vw;
+    }
+    .comment-body{
+        font-size:110%
+    }
+  } 
+  
+
+  

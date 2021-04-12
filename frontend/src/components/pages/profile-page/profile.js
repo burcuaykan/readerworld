@@ -111,7 +111,7 @@ export default class ProfileContent extends Component {
         
         if(this.state.loadedPostUser){
             
-            axios.get('http://localhost:8080/api/books/vote?voter=' + this.state.loadedPostUser.email,
+            axios.get('http://localhost:8080/api/books/vote' ,
             {
                 withCredentials: true
             })
@@ -156,7 +156,7 @@ export default class ProfileContent extends Component {
         let user = <p style={{ textAlign: 'center' }}></p>;
         if (this.state.loadedPostUser) {
             user = (
-                <div>
+                <div className="bio-row">
                     <p className="user-name">{this.state.loadedPostUser.email}</p>
                 </div>
 
@@ -227,10 +227,14 @@ export default class ProfileContent extends Component {
                             minHeight: 280,
                         }}
                     >
-                        <Row className="bio-row">
-                            <Col>
-                                <p className="user-name" > {user}</p>
-                            </Col>
+                        <Row >
+                        <div className="container-grid">
+                        <div className="content-col">
+                        {user}
+                            </div>
+                            </div>
+                            
+                            
 
                         </Row>
                         <Row>
