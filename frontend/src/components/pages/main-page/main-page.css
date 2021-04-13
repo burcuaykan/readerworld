@@ -16,9 +16,6 @@
     padding-left: 20px!important;
 }
 
-
-
-
 .ant-input-group-addon {
     background: #202124!important;
 }
@@ -32,4 +29,10 @@
 .search-input{
     width: auto;
     margin-top: 1rem;
+}
+.small-menu-btn {
+    font-size: 20px!important;
+    color: #f7931e!important;
+    height: auto!important;
+    margin-top: 0.5rem;
 }
