@@ -175,7 +175,7 @@ class FullBook extends Component {
                         console.log(this.state.comments)
                     });
                 
-                axios.get('http://localhost:8080/api/books/vote?isbn=' + this.props.match.params.isbn,
+                axios.get('http://localhost:8080/api/books/vote?isbn=' + this.props.match.params.isbn +'&voter=false',
                 {
                     withCredentials: true
                 })
@@ -264,9 +264,7 @@ class FullBook extends Component {
                     <div className="logo" style={{ float: "left" }}>
                         <img src={MainLogo} alt="" style={{ width: "40%" }} />
                     </div>
-                    <div className="search-bar">
-                        <Search className="search-bar-input" placeholder="Search..." onSearch={onSearch} style={{ width: 200 }} />
-                    </div>
+                    
                 </Header>
                 <Layout>
                     <Sider className="site-layout-background" width={200} >

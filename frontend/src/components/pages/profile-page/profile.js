@@ -209,9 +209,7 @@ export default class ProfileContent extends Component {
                 <div className="logo" style={{ float: "left" }}>
                     <img src={MainLogo} alt="" style={{ width: "40%" }} />
                 </div>
-                <div className="search-bar">
-                    <Search className="search-bar-input" placeholder="Search..." onSearch={onSearch} style={{ width: 200 }} />
-                </div>
+                
             </Header>
             <Layout>
                 <Sider className="site-layout-background" width={200} >
