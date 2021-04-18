@@ -227,7 +227,7 @@ class FullBook extends Component {
         if (this.state.loadedPost) {
             book = (
                 <div className="FullBook">
-                    <img src={"http://covers.openlibrary.org/b/isbn/" + this.state.loadedPost.isbn + "-L.jpg?default=false"} alt="" style={{ height: "550px" }} id="imageBox" />
+                    <img src={"http://covers.openlibrary.org/b/isbn/" + this.state.loadedPost.isbn + "-L.jpg?default=false"} alt="" className="book-view" id="imageBox" />
                     <p textAlign="center" className="full-book-name">{this.state.loadedPost.bookname}</p>
                     <p className="full-author-name">{this.state.loadedPost.author}</p>
                     <p className="full-ISBN">ISBN: {this.state.loadedPost.isbn}</p>
@@ -261,13 +261,13 @@ class FullBook extends Component {
            
             <Layout style={{ height: "1024px" }}>
                 <Header className="header">
-                    <div className="logo" style={{ float: "left" }}>
-                        <img src={MainLogo} alt="" style={{ width: "40%" }} />
-                    </div>
-                    
-                </Header>
+                <div className="logo" style={{ float: "left" }}>
+                    <img src={MainLogo} alt="" style={{ width: "40%" }} />
+                </div>
+                
+            </Header>
                 <Layout>
-                    <Sider className="site-layout-background" width={200} >
+                <Sider className="site-layout-background"  width={200} >
                         <NavBarComp />
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>
@@ -298,10 +298,10 @@ class FullBook extends Component {
                                             />
                                         </div>
                                         
-                                        <div className="rating-content">
-                                            <p className="rate-header">Select a deadline and add to readlist:</p>
-                                            <Space direction="vertical">
-                                                <DatePicker onChange={this.onChangeDate} />
+                                        <div className="readlist-content">
+                                            <p className="readlist-header">Select a deadline and add to readlist:</p>
+                                            <Space className="full-space" direction="vertical">
+                                                <DatePicker className="full-datepicker" onChange={this.onChangeDate} />
                                             </Space>,
                                             <Button className="add-to-readlist-button" value="Add to readlist" id="add-to-readlist" onClick={ () => {
                                                 this.onClick(); this.changeText("Added to readlist")}
