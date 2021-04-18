@@ -131,16 +131,11 @@ export default class SignIn extends Component {
         return (
             <div>
                 <div id="welcome-header-menu" style={{ float: "left" }} >
-                    {/* <Menu className="welcome-header-menu" mode="horizontal">
-                <Menu.Item id="welcome-logo" style={{ float: "left" }}>
-                    <img src={WelcomeLogo} alt="" style={{width: "55%"}}/>
-                </Menu.Item>
-            </Menu> */}
-                    <img src={WelcomeLogo} alt="" style={{ width: "55%" }} />
+                    <img className="welcome-logo" src={WelcomeLogo} alt="" />
                 </div>
                 <div className="container" style={{ paddingTop: "150px" }} >
                     <div id="sign-in" >
-                        <img src={SignBackground} alt="" className="sign-background" style={{ width: "47%" }} />
+                        <img src={SignBackground} alt="" className="sign-background"  />
                         <div className="sign-center">
                             <h1 className="sign-header">WELCOME</h1>
                             <Tabs defaultActiveKey="1" >
@@ -254,7 +249,7 @@ export default class SignIn extends Component {
                                     </Form>
                                 </TabPane>
                             </Tabs>
-                            <hr />
+                            <hr className="d-none d-md-block" />
                         </div>
                     </div>
                 </div>

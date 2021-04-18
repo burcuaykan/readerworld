@@ -1,3 +1,6 @@
+.welcome-logo{
+    width: 55%;
+}
 .h2-text{
     font-weight: bold;
     color: #FFFAF8;
@@ -9,6 +12,9 @@
     position: relative;
     text-align: center;
     
+}
+.sign-background{
+    width: 47%;
 }
 .sign-center{
     position: absolute;
@@ -66,11 +72,11 @@
 }
 .ant-tabs-tab-btn:hover{
     color: #FD823C!important;
-    background: #ffffff;
+    /* background: #ffffff; */
 }
 .ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
     color: #ffffff!important;
-    background: #FD823C;
+    /* background: #FD823C; */
 }
 .username-input{
     background: #FFFAF8!important;
@@ -88,4 +94,25 @@
 }
 .ant-form-item-explain.ant-form-item-explain-error {
     color: #FD823C!important;
+}
+
+@media (max-width: 767.98px) { 
+    .welcome-logo{
+        width: 45%;
+    }
+
+    .sign-header{
+        font-size: 2rem;
+        margin-top: 5rem;
+    }
+    .sign-background{
+        width: 95%;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        font-size: 25px;
+        line-height: 74px;
+    }
+    .ant-tabs-tab{
+        font-size: 25px!important;
+    }
 }
