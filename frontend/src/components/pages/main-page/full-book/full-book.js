@@ -6,31 +6,18 @@ import MainLogo from '../../../../images/mainpage-logo.svg';
 import { Input } from 'antd';
 import NavBarComp from "../../../navigation-bar/navigation-bar.js";
 import './full-book.css';
-import moment from 'moment';
 import { Rate } from 'antd';
-// import Aleyna from '../../../../images/footer-images/aleyna.png';
-// import Burcu from '../../../../images/footer-images/burcu.png';
+import { MenuOutlined } from '@ant-design/icons';
 import { Comment, Form, Button, List } from 'antd';
-import { Row, Col } from 'react-bootstrap';
-import Rates from '../../../rate/rate';
+import { Row} from 'react-bootstrap';
 import { DatePicker, Space } from 'antd';
 
 
-
-const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
 
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
-    <List
-        dataSource={comments}
-        // header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-        itemLayout="horizontal"
-        renderItem={props => <Comment {...props} />}
-    />
-);
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <>
@@ -46,9 +33,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 
-
-const onSearch = value => console.log(value);
-
 class FullBook extends Component {
     state = {
         loadedPost: null,
@@ -61,9 +45,23 @@ class FullBook extends Component {
         done: true,
         buttonLabel: "Add to readlist",
         loadedUser: null,
-        deadline: null
+        deadline: null,
+        isSmallMenuHidden: true
 
     };
+    openSmallMenu = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            isSmallMenuHidden: !(this.state.isSmallMenuHidden)
+        });
+    }
+
+    closeSmallMenu = () => {
+        document.body.style.overflowY = "auto";
+        this.setState({
+            isSmallMenuHidden: !(this.state.isSmallMenuHidden)
+        });
+    }
     onClick = () => {
         axios.post('http://localhost:8080/api/books/readlist',
             {
@@ -239,7 +237,7 @@ class FullBook extends Component {
         
         let rateTotaldummy = 0.0;
         let ratedummy = <p>{rateTotaldummy}</p>;
-        if (this.state.votes.length!=0) {
+        if (this.state.votes.length!==0) {
             this.state.votes.forEach((vote) => {
                 rateTotaldummy = rateTotaldummy + vote.vote;
               })
@@ -249,7 +247,7 @@ class FullBook extends Component {
             ratedummy = <p>{rateTotaldummy}</p>;
         }
         let usersRating = 0;
-        if(this.state.votes.length!=0 && this.state.loadedUser){
+        if(this.state.votes.length!==0 && this.state.loadedUser){
             this.state.votes.forEach((vote) => {
                 if(vote.voter==this.state.loadedUser.email){
                     usersRating = vote.vote;
@@ -260,14 +258,23 @@ class FullBook extends Component {
         return (
            
             <Layout style={{ height: "1024px" }}>
-                <Header className="header">
-                <div className="logo" style={{ float: "left" }}>
-                    <img src={MainLogo} alt="" style={{ width: "40%" }} />
-                </div>
-                
-            </Header>
+                <Header className="header d-none d-md-block">
+                    <div className="logo" style={{ float: "left" }}>
+                        <img src={MainLogo} alt="" style={{ width: "40%" }} />
+                    </div>
+                </Header>
+                <Header className="header d-block d-md-none">
+                    <div className="logo" style={{ float: "left", display: "contents" }}>
+                        <img src={MainLogo} alt="" style={{ width: "40%" }} />
+                    </div>
+                    <Button className="small-menu-btn d-block d-md-none" type="link" style={{ float: "right" }} onClick={this.openSmallMenu}><MenuOutlined /></Button>
+                    <div hidden={this.state.isSmallMenuHidden} className="d-block d-md-none header-small-menu">
+
+                        <NavBarComp />
+                    </div>
+                </Header>
                 <Layout>
-                <Sider className="site-layout-background"  width={200} >
+                <Sider className="site-layout-background d-none d-md-block"  width={200} >
                         <NavBarComp />
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>

@@ -100,7 +100,7 @@ export default class UploadImage extends Component {
 
                 </Header>
                 <Layout>
-                    <Sider className="site-layout-background" width={200} >
+                    <Sider className="site-layout-background d-none d-md-block" width={200} >
                         <NavBarComp />
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px', alignItems: 'center'}}>

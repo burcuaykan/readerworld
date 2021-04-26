@@ -47,3 +47,9 @@
 .book-content:active {
     background-color: #fc7b3b42;
 }
+.small-menu-btn {
+    font-size: 20px!important;
+    color: #f7931e!important;
+    height: auto!important;
+    margin-top: 0.5rem;
+}

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import './find-book.css';
-import { Layout } from 'antd';
+import {Button, Layout } from 'antd';
 import MainLogo from '../../../images/mainpage-logo.svg';
 import { Link } from 'react-router-dom';
 import { Input } from 'antd';
 import NavBarComp from '../../navigation-bar/navigation-bar.js'
 import { NavLink } from "react-router-dom";
 import { Row, Col } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 const { Search } = Input;
 
 const { Header, Sider } = Layout;
@@ -17,7 +18,23 @@ export default class FindBook extends Component {
         loadedPost: [],
         notfound: "",
         addbook: "",
+        isSmallMenuHidden: true
     };
+    
+
+    openSmallMenu = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            isSmallMenuHidden: !(this.state.isSmallMenuHidden)
+        });
+    }
+
+    closeSmallMenu = () => {
+        document.body.style.overflowY = "auto";
+        this.setState({
+            isSmallMenuHidden: !(this.state.isSmallMenuHidden)
+        });
+    }
     onSearch = value => {
         axios.get(`http://localhost:8080/api/books/?isbn=` + value,
             {
@@ -119,14 +136,23 @@ export default class FindBook extends Component {
         }
         return (
             <Layout style={{ minHeight: "600px" }}>
-                <Header className="header">
+                <Header className="header d-none d-md-block">
                     <div className="logo" style={{ float: "left" }}>
                         <img src={MainLogo} alt="" style={{ width: "40%" }} />
                     </div>
+                </Header>
+                <Header className="header d-block d-md-none">
+                    <div className="logo" style={{ float: "left", display: "contents" }}>
+                        <img src={MainLogo} alt="" style={{ width: "40%" }} />
+                    </div>
+                    <Button className="small-menu-btn d-block d-md-none" type="link" style={{ float: "right" }} onClick={this.openSmallMenu}><MenuOutlined /></Button>
+                    <div hidden={this.state.isSmallMenuHidden} className="d-block d-md-none header-small-menu">
 
+                        <NavBarComp />
+                    </div>
                 </Header>
                 <Layout>
-                    <Sider className="site-layout-background" width={200} >
+                    <Sider className="site-layout-background d-none d-md-block" width={200} >
                         <NavBarComp />
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>
