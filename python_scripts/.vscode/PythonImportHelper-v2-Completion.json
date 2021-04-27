@@ -1,0 +1,182 @@
+[
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "easyocr",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "easyocr",
+        "description": "easyocr",
+        "detail": "easyocr",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "cnt",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "cnt = 0\nusername = \"user29@user.com\"\npassword = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "username",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "username = \"user29@user.com\"\npassword = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "password",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "password = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "userinfo",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "userinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "login_url",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "login_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "x",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "x = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "cookies",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "cookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd\n        m,d,y = publicationDate.split(\"/\")",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "book_post_url",
+        "kind": 5,
+        "importPath": "database_update",
+        "description": "database_update",
+        "peekOfCode": "book_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd\n        m,d,y = publicationDate.split(\"/\")\n        #zfill function in order to achieve 02 instead of 2.",
+        "detail": "database_update",
+        "documentation": {}
+    },
+    {
+        "label": "cnt",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "cnt = 0\nusername = \"user29@user.com\"\npassword = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "username",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "username = \"user29@user.com\"\npassword = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "password",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "password = \"user29\"\nuserinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "userinfo",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "userinfo = {\"username\": username, \"password\": password}\nlogin_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "login_url",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "login_url = \"http://localhost:8080/login\"\nx = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "x",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "x = requests.post(login_url, data=userinfo)\ncookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "cookies",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "cookies = x.cookies\nbook_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd\n        m,d,y = publicationDate.split(\"/\")",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "book_post_url",
+        "kind": 5,
+        "importPath": "dataset_load",
+        "description": "dataset_load",
+        "peekOfCode": "book_post_url = \"http://localhost:8080/api/books\"\nwith open(\"books.csv\") as f:\n    for i in f:\n        values = i.split(\",\")\n        _, bookname, author, _, _, isbn13, _, pageNumber, _, _, publicationDate, publisher = values\n        if isbn13 == \"isbn13\":\n            continue\n        #transforming \"mm/dd/yyyy to yyyy-mm-dd\n        m,d,y = publicationDate.split(\"/\")\n        #zfill function in order to achieve 02 instead of 2.",
+        "detail": "dataset_load",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "image_to_string",
+        "description": "image_to_string",
+        "peekOfCode": "def main():\n    detail = 0\n    reader = easyocr.Reader(['en']) # need to run only once to load model into memory\n    result = reader.readtext(sys.argv[1])\n    areas = []\n    for i in range(len(result)):\n        areas.append((result[i][0][1][0]-result[i][0][0][0])*(result[i][0][2][1]-result[i][0][1][1]))\n    areaindices = sorted(range(len(areas)), key=lambda k: areas[k], reverse=True)\n    result_strings = []\n    for j in range(len(areaindices)):",
+        "detail": "image_to_string",
+        "documentation": {}
+    }
+]
