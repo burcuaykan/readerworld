@@ -156,17 +156,18 @@ export default class FindBook extends Component {
                         <NavBarComp />
                     </Sider>
                     <Layout style={{ padding: '24px 24px 24px' }}>
+                        <h1 className="find-book-title" style={{ textAlign: "center" }}>Find Book Just One Search!</h1>
                         <Row style={{ textAlign: "center" }}>
-                            <Col span={8}>
-                                <h1 style={{ fontSize: "large" }}> Find Book with isbn!</h1>
+                            <Col span={8} xs={24}>
+                                <h1 style={{ fontSize: "large" }} className="isbn-text"> Find Book with isbn!</h1>
                                 <Search placeholder="type ISBN" onSearch={this.onSearch} className="search-input" />
                             </Col>
-                            <Col span={8}>
-                                <h1 style={{ fontSize: "large" }}> Find Book with name!</h1>
+                            <Col span={8} xs={24}>
+                                <h1 style={{ fontSize: "large" }} className="name-text"> Find Book with name!</h1>
                                 <Search placeholder="type name" onSearch={this.onSearchName} className="search-input" />
                             </Col>
-                            <Col span={8}>
-                                <h1 style={{ fontSize: "large" }}> Find Book with author!</h1>
+                            <Col span={8} xs={24}>
+                                <h1 style={{ fontSize: "large" }} className="author-text"> Find Book with author!</h1>
                                 <Search placeholder="type name" onSearch={this.onSearchAuthor} className="search-input" />
                             </Col>
                         </Row>

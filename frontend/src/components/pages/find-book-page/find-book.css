@@ -1,6 +1,7 @@
 .search-input{
     width: auto;
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 .ant-input-group-addon {
     background: transparent!important;
@@ -52,4 +53,19 @@
     color: #f7931e!important;
     height: auto!important;
     margin-top: 0.5rem;
+}
+.find-book-title{
+    font-size: 2rem;
+    font-style: italic;
+}
+@media (max-width: 767.98px) { 
+    .isbn-text{
+        color: #df6118;
+    }
+    .author-text{
+        color: #df6118;
+    }
+    .name-text{ 
+        color: #df6118;
+    }
 }
