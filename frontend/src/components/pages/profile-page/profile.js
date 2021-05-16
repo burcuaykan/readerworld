@@ -62,25 +62,23 @@ export default class ProfileContent extends Component {
         });
         
         
-        axios.get(`http://localhost:8080/api/books/readlist/`,
+        axios.get(`http://localhost:8080/api/books/readlist`,
         {
             withCredentials: true
         })
         .then(response => {
             
             console.log(response.data);
-            
-                const readlist = response.data.map(readlist =>
-                    
-                     <div className="readlist-container" key={readlist.isbn}>
-                          
-                         <p><p className="comment-body">Book:</p>{readlist.bookInformation.bookname}</p>
-                         <p><p className="comment-body">Deadline:</p>{readlist.deadline.date}</p>
+                const readlists = response.data.map(readlist =>
+                     <div className="comment-container" key={readlist.isbn}>
+                        <p> <p className="comment-body"> Book name: </p> {readlist.bookInformation.bookname}</p>
+                         <p><p className="comment-body"> Deadline: </p> {readlist.deadline}</p>
+                      
 
                      </div>);
                 // )
                 this.setState({
-                    loadedPostReadList: readlist,
+                    loadedPostReadList: readlists,
                     error: null
                 });
             
@@ -100,8 +98,8 @@ export default class ProfileContent extends Component {
             console.log(response.data);
                 const comments = response.data.map(comment =>
                      <div className="comment-container" key={comment.isbn}>
-                        <p> <p className="comment-body"> Book isbn :</p> {comment.isbn}</p>
-                         <p><p className="comment-body"> Comment :</p> {comment.commentBody}</p>
+                        <p> <p className="comment-body"> Book isbn: </p> {comment.isbn}</p>
+                         <p><p className="comment-body"> Comment: </p> {comment.commentBody}</p>
                       
 
                      </div>);
@@ -130,8 +128,8 @@ export default class ProfileContent extends Component {
                 console.log(response.data);
                     const rates = response.data.map(rate =>
                         <div className="comment-container" key={rate.isbn}>
-                            <p> <p className="comment-body"> Book isbn :</p> {rate.isbn}</p>
-                            <p><p className="comment-body"> Rate :</p> {rate.vote}</p>
+                            <p> <p className="comment-body"> Book isbn: </p> {rate.isbn}</p>
+                            <p><p className="comment-body"> Rate: </p> {rate.vote}</p>
                         
                         </div>);
                     // )
@@ -257,6 +255,7 @@ export default class ProfileContent extends Component {
                                 <Col className="list-col">
                                     <p className="lists" > Readlist</p>
                                     <p className="book-names" > {readlist} </p>
+                                    <p></p>
                                     <NavLink to="/main-page" exact> 
                                         <Button className="add-book-button"> 
                                             Add new book
