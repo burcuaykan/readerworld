@@ -15,6 +15,8 @@ def main():
 
     for j in range(len(areaindices)):
         result_strings.append(result[areaindices[j]][1])
+    for k in range(len(result_strings)):
+        result_strings[k] = result_strings[k].upper()
 
     print(result_strings)
     return(result_strings)
