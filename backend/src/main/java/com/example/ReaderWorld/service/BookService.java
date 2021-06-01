@@ -4,11 +4,20 @@ import com.example.ReaderWorld.model.*;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.print.Book;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -249,6 +258,7 @@ public class BookService{
     }
 
 
+
     public List<BookDTO> getBookByFilters(String authorName, Integer pageNumberMin, Integer pageNumberMax, Date minPublicationDate, Date maxPublicationDate) throws InterruptedException, ExecutionException {
 
 
@@ -330,6 +340,55 @@ public class BookService{
         return res;
     }
 
+    public List<BookDTO> handleBookUpload(MultipartFile file){
+
+        String fileName = file.getOriginalFilename();
+        String prefix = fileName.substring(fileName.lastIndexOf("."));
+
+        File new_file = null;
+        try {
+
+            new_file = File.createTempFile(fileName, prefix);
+            file.transferTo(new_file);
+
+            System.out.println("You successfully sent " + file.getOriginalFilename());
+            System.out.println(file.getResource().toString());
+
+            MediaType MEDIA_TYPE_PNG = MediaType.parse("image");
+
+            okhttp3.RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", "8457851245")
+                    .addFormDataPart("file",file.getOriginalFilename(), okhttp3.RequestBody.create(MEDIA_TYPE_PNG, new_file)).build();
+
+
+            Request request = new Request.Builder()
+                    .url("http://127.0.0.1:5000/upload")
+                    .post(req)
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            okhttp3.Response response = client.newCall(request).execute();
+
+            JSONParser parser = new JSONParser();
+            String res = response.body().string();
+            JSONObject json = (JSONObject) parser.parse(res);
+
+            JSONArray words = (JSONArray) json.get("words");
+
+            System.out.println("flask server returned " + words);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            // After operating the above files, you need to delete the temporary files generated in the root directory
+            File f = new File(new_file.toURI());
+            f.delete();
+        }
+
+        return null;
+    }
+
 
 
     public boolean updateBook(BookDTO bookDTO) throws ExecutionException, InterruptedException {
@@ -371,8 +430,6 @@ public class BookService{
             throw new IllegalArgumentException("Something is wrong in Book information");
         }
     }
-
-
 
 
 }

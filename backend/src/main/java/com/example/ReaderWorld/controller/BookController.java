@@ -12,6 +12,9 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -177,52 +180,11 @@ public class BookController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-
-        MultipartFile multiFile = file; //File object passed from the front end
-
-        String fileName = multiFile.getOriginalFilename();
-        String prefix = fileName.substring(fileName.lastIndexOf("."));
-
-        File new_file = null;
-        try {
-
-            new_file = File.createTempFile(fileName, prefix);
-            multiFile.transferTo(new_file);
-
-            System.out.println("You successfully sent " + file.getOriginalFilename());
-            System.out.println(file.getResource().toString());
-
-            MediaType MEDIA_TYPE_PNG = MediaType.parse("image");
-
-            okhttp3.RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", "8457851245")
-                    .addFormDataPart("userfile",file.getOriginalFilename(), okhttp3.RequestBody.create(MEDIA_TYPE_PNG, new_file)).build();
-
-
-            Request request = new Request.Builder()
-                    .url("http://127.0.0.1:5000/upload")
-                    .post(req)
-                    .build();
-
-            OkHttpClient client = new OkHttpClient();
-            okhttp3.Response response = client.newCall(request).execute();
-
-            System.out.println("uploadImage:"+response.body().string());
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        } finally {
-            // After operating the above files, you need to delete the temporary files generated in the root directory
-            File f = new File(new_file.toURI());
-            f.delete();
-        }
-
-        return "";
+        bookService.handleBookUpload(file);
+        return ResponseEntity.ok("");
     }
 
 

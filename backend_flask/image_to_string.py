@@ -1,10 +1,12 @@
 import easyocr
 import sys
 
-def main():
+
+def image_to_list(fileName):
     detail = 0
-    reader = easyocr.Reader(['en']) # need to run only once to load model into memory
-    result = reader.readtext(sys.argv[1])
+    reader = easyocr.Reader(['en'])
+    # need to run only once to load model into memory
+    result = reader.readtext(fileName)
     areas = []
 
     for i in range(len(result)):
@@ -20,6 +22,3 @@ def main():
 
     print(result_strings)
     return(result_strings)
-
-if __name__ == "__main__":
-    main()
