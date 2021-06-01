@@ -6,10 +6,20 @@ import com.example.ReaderWorld.model.VoteDTO;
 import com.example.ReaderWorld.model.LikeDTO;
 import com.example.ReaderWorld.model.ReadListDTO;
 import com.example.ReaderWorld.service.BookService;
+
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -165,6 +175,57 @@ public class BookController {
     public ResponseEntity<?> addReadList(@RequestBody ReadListDTO readListDTO){
         return ResponseEntity.ok(bookService.addReadList(readListDTO));
     }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) throws IOException {
+
+
+        MultipartFile multiFile = file; //File object passed from the front end
+
+        String fileName = multiFile.getOriginalFilename();
+        String prefix = fileName.substring(fileName.lastIndexOf("."));
+
+        File new_file = null;
+        try {
+
+            new_file = File.createTempFile(fileName, prefix);
+            multiFile.transferTo(new_file);
+
+            System.out.println("You successfully sent " + file.getOriginalFilename());
+            System.out.println(file.getResource().toString());
+
+            MediaType MEDIA_TYPE_PNG = MediaType.parse("image");
+
+            okhttp3.RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", "8457851245")
+                    .addFormDataPart("userfile",file.getOriginalFilename(), okhttp3.RequestBody.create(MEDIA_TYPE_PNG, new_file)).build();
+
+
+            Request request = new Request.Builder()
+                    .url("http://127.0.0.1:5000/upload")
+                    .post(req)
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            okhttp3.Response response = client.newCall(request).execute();
+
+            System.out.println("uploadImage:"+response.body().string());
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            // After operating the above files, you need to delete the temporary files generated in the root directory
+            File f = new File(new_file.toURI());
+            f.delete();
+        }
+
+        return "";
+    }
+
+
 
     @PutMapping("")
     @ResponseBody
