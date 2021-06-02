@@ -183,8 +183,8 @@ public class BookController {
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        bookService.handleBookUpload(file);
-        return ResponseEntity.ok("");
+
+        return ResponseEntity.ok(bookService.handleBookUpload(file));
     }
 
 

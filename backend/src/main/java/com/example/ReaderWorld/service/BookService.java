@@ -373,9 +373,22 @@ public class BookService{
             JSONObject json = (JSONObject) parser.parse(res);
 
             JSONArray words = (JSONArray) json.get("words");
+            long size = (Long) json.get("size");
+            JSONObject wordsObject = (JSONObject) words.get(0);
 
             System.out.println("flask server returned " + words);
 
+            for (int i = 0; i < size; i++) {
+                String word = (String) wordsObject.get(Integer.toString(i));
+
+                word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+
+                List<BookDTO> bookByName = getBookByName(word);
+                if (bookByName.size() != 0){
+                    return bookByName;
+                }
+            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -386,7 +399,7 @@ public class BookService{
             f.delete();
         }
 
-        return null;
+        return new ArrayList<BookDTO>();
     }
 
 
