@@ -21,7 +21,7 @@ def book_upload():
         data = asarray(img)
 
         words = image_to_list(data)
-        return {"words" : [{str(x):words[x] for x in range(len(words))}]}
+        return {"words" : [{str(x):words[x] for x in range(len(words))}], "size" : len(words)}
 
     return "Book Page"
 
