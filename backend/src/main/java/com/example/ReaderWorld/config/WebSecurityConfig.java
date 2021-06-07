@@ -29,6 +29,7 @@ import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         prePostEnabled = true,
@@ -83,11 +84,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:3000", "http://localhost:8080","http://localhost:5000","http://localhost:8081", "http://localhost:8082","http://readerworld.ceng.metu.edu.tr:8082", "http://readerworld.ceng.metu.edu.tr:8081", "https://stupefied-davinci-e75f7c.netlify.app"));
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:3000", "http://localhost:8080","http://localhost:5000","http://localhost:8081", "http://localhost:8082","http://readerworld.ceng.metu.edu.tr:8082","http://readerworld.ceng.metu.edu.tr:8080", "http://readerworld.ceng.metu.edu.tr:8081", "https://stupefied-davinci-e75f7c.netlify.app"));
         configuration.setAllowedMethods(ImmutableList.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type", "Cookie", "Referer", "User-Agent", "Set-Cookie"));
-        configuration.setExposedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type", "Cookie", "Referer", "User-Agent", "Set-Cookie"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
