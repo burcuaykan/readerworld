@@ -42,7 +42,7 @@ export default class SignIn extends Component {
         };
 
         var querystring = require('querystring');
-        axios.post('http://localhost:8080/login',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
             // userObject,
             querystring.stringify({
                 username: this.state.username, //gave the values directly for testing
@@ -79,7 +79,7 @@ export default class SignIn extends Component {
         };
 
         
-        axios.post('http://localhost:8080/api/users/',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/users/',
             // userObject,
             {
                 email: this.state.username, //gave the values directly for testing
@@ -103,7 +103,7 @@ export default class SignIn extends Component {
                  
         // TODO: burcu add wait 
 
-        axios.post('http://localhost:8080/login',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
             // userObject,
             querystring.stringify({
                 username: this.state.username, //gave the values directly for testing
