@@ -15,7 +15,7 @@ class Books extends Component {
 
 
     componentDidMount() {
-        axios.get(`http://localhost:8080/api/books/all`,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/all`,
             {
                 withCredentials: true
             })
