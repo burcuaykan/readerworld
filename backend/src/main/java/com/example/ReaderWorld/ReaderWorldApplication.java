@@ -16,7 +16,9 @@ public class ReaderWorldApplication {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*"); // this allows all origin
+		config.addAllowedOrigin("http://readerworld.ceng.metu.edu.tr:8081"); // this allows all origin
+		config.addAllowedOrigin("http://readerworld.ceng.metu.edu.tr:8080"); // this allows all origin
+		config.addAllowedOrigin("http://readerworld.ceng.metu.edu.tr:8082"); // this allows all origin
 		config.addAllowedHeader("*"); // this allows all headers
 		config.addAllowedMethod("OPTIONS");
 		config.addAllowedMethod("HEAD");
