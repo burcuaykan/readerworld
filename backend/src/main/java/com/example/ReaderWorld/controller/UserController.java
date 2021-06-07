@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/users")
 public class UserController {
     //dependency injection
