@@ -361,7 +361,7 @@ public class BookService{
 
 
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:5000/upload")
+                    .url("http://readerworld.ceng.metu.edu.tr:8082/upload")
                     .post(req)
                     .build();
 
