@@ -28,4 +28,4 @@ def book_upload():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="144.122.71.130", port=8082, debug=True)
