@@ -41,7 +41,7 @@ export default class UploadImage extends Component {
         addbook: "",
     };
     onSearch = value => {
-        axios.get(`http://localhost:8080/api/books/?isbn=` + value,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/?isbn=` + value,
             {
                 withCredentials: true
             })

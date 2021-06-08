@@ -63,7 +63,7 @@ class FullBook extends Component {
         });
     }
     onClick = () => {
-        axios.post('http://localhost:8080/api/books/readlist',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/books/readlist',
             {
                 isbn: this.state.loadedPost.isbn,
                 deadline: this.state.deadline
@@ -95,7 +95,7 @@ class FullBook extends Component {
         if (!this.state.value) {
             return;
         }
-        axios.post('http://localhost:8080/api/books/comment',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/books/comment',
             {
                 isbn: this.state.loadedPost.isbn,
                 commentBody: this.state.value
@@ -139,7 +139,7 @@ class FullBook extends Component {
         this.setState({
             rateCurrent,
         });
-        axios.post('http://localhost:8080/api/books/vote',
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/books/vote',
             {
                 isbn: this.state.loadedPost.isbn,
                 vote: rateCurrent
@@ -154,7 +154,7 @@ class FullBook extends Component {
         //console.log(this.props);
         if (this.props.match.params.isbn) {
             if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.isbn !== this.props.isbn)) {
-                axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn,
+                axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/?isbn=` + this.props.match.params.isbn,
                     {
                         withCredentials: true
                     })
@@ -163,7 +163,7 @@ class FullBook extends Component {
                         this.setState({ loadedPost: response.data });
                     });
 
-                axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn,
+                axios.get('http://readerworld.ceng.metu.edu.tr:8080/api/books/comment?isbn=' + this.props.match.params.isbn,
                     {
                         withCredentials: true
                     })
@@ -173,7 +173,7 @@ class FullBook extends Component {
                         console.log(this.state.comments)
                     });
                 
-                axios.get('http://localhost:8080/api/books/vote?isbn=' + this.props.match.params.isbn +'&voter=false',
+                axios.get('http://readerworld.ceng.metu.edu.tr:8080/api/books/vote?isbn=' + this.props.match.params.isbn +'&voter=false',
                 {
                     withCredentials: true
                 })
@@ -184,8 +184,8 @@ class FullBook extends Component {
                 });   
                 
                 // axios.all([
-                //     axios.get(`http://localhost:8080/api/books/?isbn=` + this.props.match.params.isbn),
-                //     axios.get('http://localhost:8080/api/books/comment?isbn=' + this.props.match.params.isbn)
+                //     axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/?isbn=` + this.props.match.params.isbn),
+                //     axios.get('http://readerworld.ceng.metu.edu.tr:8080/api/books/comment?isbn=' + this.props.match.params.isbn)
                 // ])
                 //     .then(axios.spread((data1, data2) => {
                 //         //this will be executed only when all requests are complete
@@ -194,7 +194,7 @@ class FullBook extends Component {
                 //         this.setState({ loadedPost: data1.data });
                 //         this.setState({ comments: data2.data });
                 //     }));
-                axios.get(`http://localhost:8080/api/users/`,
+                axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/users/`,
                 {
                     withCredentials: true
                 })

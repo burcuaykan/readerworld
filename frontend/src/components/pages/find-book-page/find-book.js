@@ -36,7 +36,7 @@ export default class FindBook extends Component {
         });
     }
     onSearch = value => {
-        axios.get(`http://localhost:8080/api/books/?isbn=` + value,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/?isbn=` + value,
             {
                 withCredentials: true
             })
@@ -60,7 +60,7 @@ export default class FindBook extends Component {
 
     }
     onSearchName = value => {
-        axios.get(`http://localhost:8080/api/books/search/?bookname=` + value,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/search/?bookname=` + value,
             {
                 withCredentials: true
             })
@@ -84,7 +84,7 @@ export default class FindBook extends Component {
 
     }
     onSearchAuthor = value => {
-        axios.get(`http://localhost:8080/api/books/filter/?author=` + value,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/filter/?author=` + value,
             {
                 withCredentials: true
             })

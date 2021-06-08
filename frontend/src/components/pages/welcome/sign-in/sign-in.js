@@ -101,7 +101,7 @@ export default class SignIn extends Component {
 
                  var querystring = require('querystring');
                  
-        // TODO: burcu add wait 
+        
 
         axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
             // userObject,

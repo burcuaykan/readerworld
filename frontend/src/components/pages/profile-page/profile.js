@@ -40,7 +40,7 @@ export default class ProfileContent extends Component {
     async componentDidMount() {
         console.log(this.props);
 
-        await axios.get(`http://localhost:8080/api/users/`,
+        await axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/users/`,
         {
             withCredentials: true
         })
@@ -62,7 +62,7 @@ export default class ProfileContent extends Component {
         });
         
         
-        axios.get(`http://localhost:8080/api/books/readlist`,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/readlist`,
         {
             withCredentials: true
         })
@@ -89,7 +89,7 @@ export default class ProfileContent extends Component {
             });
         });
 
-        axios.get(`http://localhost:8080/api/books/comment/`,
+        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/comment/`,
         {
             withCredentials: true
         })
@@ -119,7 +119,7 @@ export default class ProfileContent extends Component {
         
         if(this.state.loadedPostUser){
             
-            axios.get('http://localhost:8080/api/books/vote' ,
+            axios.get('http://readerworld.ceng.metu.edu.tr:8080/api/books/vote' ,
             {
                 withCredentials: true
             })
