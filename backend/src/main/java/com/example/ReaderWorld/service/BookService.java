@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class BookService{
@@ -365,8 +366,10 @@ public class BookService{
                     .post(req)
                     .build();
 
-            OkHttpClient client = new OkHttpClient();
-            okhttp3.Response response = client.newCall(request).execute();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).build();
+         
+	    
+	    okhttp3.Response response = client.newCall(request).execute();
 
             JSONParser parser = new JSONParser();
             String res = response.body().string();
