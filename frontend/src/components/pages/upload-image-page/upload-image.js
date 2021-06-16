@@ -40,30 +40,17 @@ export default class UploadImage extends Component {
         notfound: "",
         addbook: "",
     };
-    onSearch = value => {
-        axios.get(`http://readerworld.ceng.metu.edu.tr:8080/api/books/?isbn=` + value,
-            {
-                withCredentials: true
-            })
-            .then(response => {
-                console.log(response);
-                if (response.data) {
-                    this.setState({ loadedPost: response.data });
-                }
-                else {
-                    this.setState({ notfound: "Book is not found :(", addbook: "If you want, you can add this book to ReaderWorld!" });
-                    document.getElementById("add-book").style.display = "inline-block";
-                }
-
-
-            })
-            .catch(err => {
-                this.setState({
-                    error: err
-                });
+    
+   handleUpload = event => {
+       const fd = new FormData();
+       fd.append('image', event.file, "file");
+       axios.post(`http://readerworld.ceng.metu.edu.tr:8080/api/books/upload`,fd)
+            .then(res => {
+                console.log(res);
             });
-
-    }
+       console.log(event.file);
+   }
+   
     bookSelectHandler = (isbn) => {
         this.setState({ selectedPostIsbn: isbn });
     }
@@ -107,7 +94,7 @@ export default class UploadImage extends Component {
                         <Row style={{ textAlign: "center" }}>
                             <Col >
                                 <h1 className="upload-image-title"> Find Book by uploading image</h1>
-                                <Upload {...props}>
+                                <Upload {...props} onChange={this.handleUpload}>
                                     <Button icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload>
                             </Col>
