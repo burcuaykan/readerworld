@@ -49,8 +49,8 @@ export default class UploadImage extends Component {
        axios.post(`http://readerworld.ceng.metu.edu.tr:8080/api/books/upload`,fd, {withCredentials: true, "Content-Type": "multipart/form-data"})
             .then(res => {
                 console.log(res);
-                if (response.data) {
-                    this.setState({ loadedPost: response.data[0] });
+                if (res.data) {
+                    this.setState({ loadedPost: res.data[0] });
                 }
                 else {
                     this.setState({ notfound: "Book is not found :(", addbook: "If you want, you can add this book to ReaderWorld!" });
