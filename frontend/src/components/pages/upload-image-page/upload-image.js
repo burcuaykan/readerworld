@@ -43,8 +43,10 @@ export default class UploadImage extends Component {
     
    handleUpload = event => {
        const fd = new FormData();
-       fd.append('image', event.file, "file");
-       axios.post(`http://readerworld.ceng.metu.edu.tr:8080/api/books/upload`,fd)
+       console.log(event.file);
+	   console.log(event.file.name);
+	   fd.append('file', event.file.originFileObj, event.file.name);
+       axios.post(`http://readerworld.ceng.metu.edu.tr:8080/api/books/upload`,fd, {withCredentials: true, "Content-Type": "multipart/form-data"})
             .then(res => {
                 console.log(res);
                 if (response.data) {
