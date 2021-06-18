@@ -50,7 +50,7 @@ export default class UploadImage extends Component {
             .then(res => {
                 console.log(res);
                 if (res.data) {
-                    this.setState({ loadedPost: res.data[0] });
+                    this.setState({ loadedPost: res.data });
                 }
                 else {
                     this.setState({ notfound: "Book is not found :(", addbook: "If you want, you can add this book to ReaderWorld!" });
@@ -66,7 +66,7 @@ export default class UploadImage extends Component {
     render() {
         let book = <p style={{ textAlign: 'center' }}></p>;
         if (this.state.loadedPost) {
-            book = this.state.loadedPost.map((book, i) => {
+            book = this.state.loadedPost.slice(0,1).map((book, i) => {
                 return (
                     <Link to={'/' + book.isbn} key={i}>
                         <div className="book-content" key={i} onClick={() => this.bookSelectHandler(book.isbn)} >
