@@ -8,7 +8,13 @@ import axios from 'axios';
 import { Redirect } from "react-router-dom";
 const { TabPane } = Tabs;
 
-
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
 export default class SignIn extends Component {
 
     constructor(props) {
@@ -71,7 +77,7 @@ export default class SignIn extends Component {
 
         // this.setState({ username: '', password: '' })
     }
-
+    
     onSubmitSignup = (e) => {
         const userObject = {
             email: this.state.username,
@@ -101,7 +107,7 @@ export default class SignIn extends Component {
 
                  var querystring = require('querystring');
                  
-        
+        sleep(2000);
         setTimeout(axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
         // userObject,
         querystring.stringify({
