@@ -119,7 +119,7 @@ export default class SignIn extends Component {
             console.log(response);
         }).catch((error) => {
                 console.log(error)
-             }), 3000);
+             }), 5000);
         
     }
 
