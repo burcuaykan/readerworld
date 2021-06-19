@@ -102,25 +102,25 @@ export default class SignIn extends Component {
                  var querystring = require('querystring');
                  
         
-
-        axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
-            // userObject,
-            querystring.stringify({
-                username: this.state.username, //gave the values directly for testing
-                password: this.state.password,
-            }),
-             {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            withCredentials: true
-        })
-            .then((response) => {
-                this.setState({ loggedIn: true });
-                console.log(response);
-            }).catch((error) => {
-                    console.log(error)
-                 });
+        setTimeout(axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
+        // userObject,
+        querystring.stringify({
+            username: this.state.username, //gave the values directly for testing
+            password: this.state.password,
+        }),
+         {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        withCredentials: true
+    })
+        .then((response) => {
+            this.setState({ loggedIn: true });
+            console.log(response);
+        }).catch((error) => {
+                console.log(error)
+             }), 3000);
+        
     }
 
     render() {
