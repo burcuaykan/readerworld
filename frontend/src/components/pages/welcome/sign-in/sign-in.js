@@ -79,8 +79,8 @@ export default class SignIn extends Component {
             password: this.state.password
         };
 
-        while (true) {
-            axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/users/',
+
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/users/',
             // userObject,
             {
                 email: this.state.username, //gave the values directly for testing
@@ -122,11 +122,8 @@ export default class SignIn extends Component {
             }).catch((error) => {
                 console.log(error)
             });
-            if (this.state.loggedIn) {            
-                break;
-            } 
-        }
-  
+
+
     }
 
     render() {
