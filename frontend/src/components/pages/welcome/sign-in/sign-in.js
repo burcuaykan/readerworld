@@ -123,8 +123,7 @@ export default class SignIn extends Component {
                         console.log(error)
                     });
 
-                        
-                break;
+                
             } 
         
         
