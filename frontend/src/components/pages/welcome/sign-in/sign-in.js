@@ -123,7 +123,7 @@ export default class SignIn extends Component {
                     console.log(error)
                  });
 
-            if (this.state.loggedIn) {            
+            if (this.state.signUp) {            
                 break;
             } 
         }
