@@ -102,31 +102,31 @@ export default class SignIn extends Component {
 
                  var querystring = require('querystring');
                  
-        while (true) {
-            
-            axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
-            // userObject,
-                querystring.stringify({
-                    username: this.state.username, //gave the values directly for testing
-                    password: this.state.password,
-                }),
-                {
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                withCredentials: true
-            })
-            .then((response) => {
-                this.setState({ loggedIn: true });
-                console.log(response);
-            }).catch((error) => {
-                    console.log(error)
-                 });
+        
+            if (this.state.signUp) {
+                axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
+                // userObject,
+                    querystring.stringify({
+                        username: this.state.username, //gave the values directly for testing
+                        password: this.state.password,
+                    }),
+                    {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    withCredentials: true
+                })
+                .then((response) => {
+                    this.setState({ loggedIn: true });
+                    console.log(response);
+                }).catch((error) => {
+                        console.log(error)
+                    });
 
-            if (this.state.signUp) {            
+                        
                 break;
             } 
-        }
+        
         
         
     }
@@ -155,7 +155,7 @@ export default class SignIn extends Component {
                                         initialValues={{
                                             remember: true,
                                         }}
-                                        onFinish={this.onSubmit}
+                                        onFinish={this.onSubmit & this.onSubmit}
                                         onFinishFailed={this.onFinishFailed}
                                     >
                                         <Form.Item
