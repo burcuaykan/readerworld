@@ -24,7 +24,8 @@ export default class SignIn extends Component {
             username: '',
             password: '',
             loggedIn: false,
-            signUp: false
+            signUp: false,
+            found: false
         }
     }
     onChangeUserName = (e) => {
@@ -71,7 +72,7 @@ export default class SignIn extends Component {
 
         // this.setState({ username: '', password: '' })
     }
-
+    
     onSubmitSignup = (e) => {
         const userObject = {
             email: this.state.username,
@@ -101,25 +102,32 @@ export default class SignIn extends Component {
 
                  var querystring = require('querystring');
                  
+        while (true) {
+            
+            axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
+            // userObject,
+                querystring.stringify({
+                    username: this.state.username, //gave the values directly for testing
+                    password: this.state.password,
+                }),
+                {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                withCredentials: true
+            })
+            .then((response) => {
+                this.setState({ loggedIn: true });
+                console.log(response);
+            }).catch((error) => {
+                    console.log(error)
+                 });
+
+            if (this.state.loggedIn) {            
+                break;
+            } 
+        }
         
-        setTimeout(axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
-        // userObject,
-        querystring.stringify({
-            username: this.state.username, //gave the values directly for testing
-            password: this.state.password,
-        }),
-         {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        withCredentials: true
-    })
-        .then((response) => {
-            this.setState({ loggedIn: true });
-            console.log(response);
-        }).catch((error) => {
-                console.log(error)
-             }), 5000);
         
     }
 
