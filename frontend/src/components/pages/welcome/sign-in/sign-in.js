@@ -49,19 +49,19 @@ export default class SignIn extends Component {
                 username: this.state.username, //gave the values directly for testing
                 password: this.state.password,
             }),
-             {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            withCredentials: true
-        })
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                withCredentials: true
+            })
             .then((response) => {
                 this.setState({ loggedIn: true });
                 console.log(response);
             }).catch((error) => {
-                    console.log(error)
-                 });
-                 
+                console.log(error)
+            });
+
         // .then((res) => {
         //     this.setState({ loggedIn: true});
         //     console.log(res.data);
@@ -72,62 +72,61 @@ export default class SignIn extends Component {
 
         // this.setState({ username: '', password: '' })
     }
-    
+
     onSubmitSignup = (e) => {
         const userObject = {
             email: this.state.username,
             password: this.state.password
         };
 
-        
-        axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/users/',
+        while (true) {
+            axios.post('http://readerworld.ceng.metu.edu.tr:8080/api/users/',
             // userObject,
             {
                 email: this.state.username, //gave the values directly for testing
                 password: this.state.password,
             },
-             {
-            headers: {
-                "Content-Type": "application/json"
-            },
-            withCredentials: true
-        })
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            })
             .then((response) => {
                 this.setState({ signUp: true });
-                
+
                 console.log(response);
             }).catch((error) => {
-                    console.log(error)
-                 });    
+                console.log(error)
+            });
 
-                 var querystring = require('querystring');
-                 
-        
-            if (this.state.signUp) {
-                axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
-                // userObject,
-                    querystring.stringify({
-                        username: this.state.username, //gave the values directly for testing
-                        password: this.state.password,
-                    }),
-                    {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    withCredentials: true
-                })
-                .then((response) => {
-                    this.setState({ loggedIn: true });
-                    console.log(response);
-                }).catch((error) => {
-                        console.log(error)
-                    });
+        var querystring = require('querystring');
 
-                
+
+
+        axios.post('http://readerworld.ceng.metu.edu.tr:8080/login',
+            // userObject,
+            querystring.stringify({
+                username: this.state.username, //gave the values directly for testing
+                password: this.state.password,
+            }),
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                withCredentials: true
+            })
+            .then((response) => {
+                this.setState({ loggedIn: true });
+                console.log(response);
+            }).catch((error) => {
+                console.log(error)
+            });
+            if (this.state.loggedIn) {            
+                break;
             } 
-        
-        
-        
+        }
+  
     }
 
     render() {
@@ -142,7 +141,7 @@ export default class SignIn extends Component {
                 </div>
                 <div className="container" style={{ paddingTop: "150px" }} >
                     <div id="sign-in" >
-                        <img src={SignBackground} alt="" className="sign-background"  />
+                        <img src={SignBackground} alt="" className="sign-background" />
                         <div className="sign-center">
                             <h1 className="sign-header">WELCOME</h1>
                             <Tabs defaultActiveKey="1" >
@@ -158,7 +157,7 @@ export default class SignIn extends Component {
                                         onFinishFailed={this.onFinishFailed}
                                     >
                                         <Form.Item
-                                            
+
                                             label="Username"
                                             name="username"
                                             rules={[
