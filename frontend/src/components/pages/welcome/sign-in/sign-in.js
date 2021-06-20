@@ -154,7 +154,7 @@ export default class SignIn extends Component {
                                         initialValues={{
                                             remember: true,
                                         }}
-                                        onFinish={this.onSubmit & this.onSubmit}
+                                        onFinish={this.onSubmit}
                                         onFinishFailed={this.onFinishFailed}
                                     >
                                         <Form.Item
