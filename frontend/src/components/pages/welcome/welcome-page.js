@@ -45,9 +45,9 @@ export default class WelcomePage extends Component {
       });
   }
   render() {
-    if (this.state.loggedIn) {
+    
       return <Redirect to='/main-page' />
-    }
+    
   }
 
 
